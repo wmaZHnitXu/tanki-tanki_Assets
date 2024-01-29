@@ -48,17 +48,12 @@ public class BasicController : MonoBehaviour
         camTrans.position = Vector3.Lerp(camTrans.position, camTarget, camSpeed * Time.deltaTime);
 
         turret.localRotation = Quaternion.Euler(0,0, GetLookAngle());
-        body.localRotation = Quaternion.Euler(0,0, GetAngleFromVec(velocity));
+        body.localRotation = Quaternion.Euler(0,0, MathUtil.GetAngleFromVec(velocity));
     }
 
     public float GetLookAngle() {
         Vector2 mouseDir = Input.mousePosition;
         mouseDir = new Vector2(mouseDir.x - Screen.width / 2, mouseDir.y - Screen.height / 2);
-        return GetAngleFromVec(mouseDir);
-    }
-
-    public float GetAngleFromVec(Vector2 vec) {
-        vec = vec.normalized;
-        return -math.atan2(vec.x, vec.y) * Mathf.Rad2Deg;
+        return MathUtil.GetAngleFromVec(mouseDir);
     }
 }

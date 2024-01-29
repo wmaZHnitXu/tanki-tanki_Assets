@@ -5,7 +5,7 @@ public abstract class Entity
     private Vector2 _position;
     public Vector2 position {
         get => _position;
-        private set {
+        protected set {
             _position = value;
         }
     }
@@ -13,7 +13,7 @@ public abstract class Entity
     private float _rotation;
     public float rotation {
         get => _rotation;
-        private set {
+        protected set {
             _rotation = value;
         }
     }
@@ -23,6 +23,6 @@ public abstract class Entity
     }
 
     public virtual void Kill() {
-        
+
     }
 }

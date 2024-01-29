@@ -5,11 +5,11 @@ public abstract class DestructibleEntity : Entity
     private float _health;
     public float health {
         get => _health;
-        private set {
+        protected set {
             _health = health;
         }
     }
-    private Collider _collider;
+    protected Collider _collider;
     public Collider collider {
         get => _collider;
         set {

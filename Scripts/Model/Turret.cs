@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Turret : MonoBehaviour
+public class Turret
 {
     private float _yaw;
     public float yaw {
@@ -11,5 +7,5 @@ public class Turret : MonoBehaviour
             _yaw = value;
         }
     }
-    private Tank owner;
+    public Tank owner;
 }

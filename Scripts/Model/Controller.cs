@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+public interface IController
 {
-    protected Tank owner;
-    public Vector2 desiredMoveDirection;
-    public Vector2 lookPos;
+    public Vector2 GetMoveDirection();
+    public float GetLookAngle();
 }

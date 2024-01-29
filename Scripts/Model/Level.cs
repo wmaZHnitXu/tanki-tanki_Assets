@@ -28,6 +28,12 @@ public class Level
         entities = new List<Entity>();
     }
 
+    public void DoUpdate(float delta) {
+        foreach (Entity entity in entities) {
+            entity.Update(this, delta);
+        }
+    }
+
     public void AddEntity(Entity entity) {
         entities.Add(entity);
     }
