@@ -13,13 +13,14 @@ public class Tank : DestructibleEntity
     public float acceleration;
     public Vector2 velocity;
     private IController controller;
+    private int team;
     public override void Update(Level level, float delta) {
 
-        velocity -= velocity * 1f * Time.deltaTime;
+        velocity -= velocity * 5.0f * Time.deltaTime;
         velocity += controller.GetMoveDirection() * acceleration * delta;
         if (velocity.magnitude > speed) velocity = velocity.normalized * speed;
 
-        position = position + velocity;
+        position = position + velocity * delta;
 
         turret.yaw = controller.GetLookAngle();
     }
@@ -29,8 +30,8 @@ public class Tank : DestructibleEntity
         turret.owner = this;
         this.controller = controller;
         health = 100.0f;
-        acceleration = 0.06f;
-        speed = 0.02f;
+        acceleration = 50.0f;
+        speed = 10f;
     }
 
     public override void Damage(float damage)

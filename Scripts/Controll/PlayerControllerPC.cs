@@ -1,15 +1,10 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IController
+public class PlayerControllerPC : PlayerController
 {
-    private Vector2 moveDirection;
-    private Tank tank;
-
-    public static PlayerController instance;
-
     void Start() {
-        instance = this;
+        current = this;
     }
 
     void Update() {
@@ -29,16 +24,10 @@ public class PlayerController : MonoBehaviour, IController
         }
 
         moveDirection = moveDirection.normalized;
-    }
 
-    public float GetLookAngle() {
+
         Vector2 mouseDir = Input.mousePosition;
         mouseDir = new Vector2(mouseDir.x - Screen.width / 2, mouseDir.y - Screen.height / 2);
-        return MathUtil.GetAngleFromVec(mouseDir);
-    }
-
-    public Vector2 GetMoveDirection()
-    {
-        return moveDirection;
+        angle = MathUtil.GetAngleFromVec(mouseDir);
     }
 }

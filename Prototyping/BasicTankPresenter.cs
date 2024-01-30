@@ -13,15 +13,11 @@ public class BasicTankPresenter : MonoBehaviour
 
 
     void Start() {
-        level = new Level(32, 32);
-        tank = new Tank(new Turret(), PlayerController.instance);
-        level.AddEntity(tank);
+        tank = Game.instance.playerTank;
     }
 
     void Update()
     {
-        level.DoUpdate(Time.deltaTime);
-
         transform.position = tank.position;
         turret.localRotation = Quaternion.Euler(0,0, tank.turret.yaw);
         body.localRotation = Quaternion.Euler(0,0, MathUtil.GetAngleFromVec(tank.velocity));

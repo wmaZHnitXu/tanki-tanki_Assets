@@ -18,11 +18,15 @@ public abstract class Entity
         }
     }
 
+    public delegate void OnDeath(Entity sender);
+    public event OnDeath OnDeathEvent;
+
     public virtual void Update(Level level, float delta) {
 
     }
 
     public virtual void Kill() {
-
+        OnDeathEvent?.Invoke(this);
+        OnDeathEvent = null;
     }
 }

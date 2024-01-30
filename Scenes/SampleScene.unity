@@ -1040,7 +1040,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1455317561}
-  - component: {fileID: 1455317560}
+  - component: {fileID: 1455317562}
+  - component: {fileID: 1455317563}
+  - component: {fileID: 1455317564}
   m_Layer: 0
   m_Name: tutel
   m_TagString: Untagged
@@ -1048,25 +1050,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1455317560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455317559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13de099660b36f945af048fc6346396b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0}
-  camTrans: {fileID: 519420032}
-  turret: {fileID: 408386069}
-  body: {fileID: 946740206}
-  camSpeed: 10
-  acceleration: 0.06
-  maxSpeed: 0.02
 --- !u!4 &1455317561
 Transform:
   m_ObjectHideFlags: 0
@@ -1084,6 +1067,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1455317562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455317559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75350fc9e274c9648bc6e011c2e6f70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camSpeed: 10
+  camTrans: {fileID: 519420032}
+  turret: {fileID: 408386069}
+  body: {fileID: 946740206}
+--- !u!114 &1455317563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455317559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48471a30d933d7b4ba9f814aca959136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1455317564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455317559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9252f9fa7be31f4b8cd54b21314ae18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
 --- !u!1 &1474052886
 GameObject:
   m_ObjectHideFlags: 0
