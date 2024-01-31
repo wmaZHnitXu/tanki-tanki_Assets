@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EntityPresentation : MonoBehaviour
 {
-    private Entity target;
+    protected Entity target;
     public delegate void OnDisposed(EntityPresentation presentation);
     public event OnDisposed OnDisposedEvent;
     public virtual void SetTargetAndUpdate(Entity target) {

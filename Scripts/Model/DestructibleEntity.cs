@@ -1,19 +1,12 @@
 using UnityEngine;
 
-public abstract class DestructibleEntity : Entity
+public abstract class DestructibleEntity : CollideableEntity
 {
     private float _health;
     public float health {
         get => _health;
         protected set {
             _health = health;
-        }
-    }
-    protected Collider _collider;
-    public Collider collider {
-        get => _collider;
-        set {
-            _collider = value;
         }
     }
 
