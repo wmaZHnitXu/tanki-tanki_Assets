@@ -21,6 +21,7 @@ public class Level
     int[,] tiles;
 
     public HashSet<Entity> entities;
+    public HashSet<CollideableEntity> collideables;
 
     List<Entity> toRemove = new List<Entity>();
     List<Entity> toAdd = new List<Entity>();

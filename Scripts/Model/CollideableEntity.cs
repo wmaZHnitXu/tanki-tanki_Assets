@@ -4,11 +4,5 @@ using UnityEngine;
 
 public abstract class CollideableEntity : Entity
 {
-    protected Collider _collider;
-    public Collider collider {
-        get => _collider;
-        set {
-            _collider = value;
-        }
-    }
+    public List<Collider> colliders;
 }
