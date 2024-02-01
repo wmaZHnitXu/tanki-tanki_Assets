@@ -49,8 +49,9 @@ public class Level
         toAdd.Add(entity);
     }
 
-    public bool TraceLine(Entity ignored, Vector2 from, Vector2 to, ref Vector2 hitPos, ref Entity entity) {
-        return true;
+    public Entity TraceLine(Entity ignored, Vector2 from, Vector2 to, out Vector2 hitPos) {
+        hitPos = Vector2.Zero;
+        return null;
     }
 
     private void AddAddedEntities() {
@@ -58,6 +59,11 @@ public class Level
             if (entities.Add(entity)) {
                 entity.OnDeathEvent += RemoveEntity;
                 OnEntityAddedEvent(entity);
+
+                if (entity is CollideableEntity) {
+                    collideables.Add(entity as CollideableEntity);
+                }
+            
             }
         }
         toAdd.Clear();
@@ -66,6 +72,10 @@ public class Level
     private void RemoveRemovedEntities() {
         foreach (Entity entity in toRemove) {
             entities.Remove(entity);
+
+            if (entity is CollideableEntity) {
+                collideables.Remove(entity as CollideableEntity);
+            }
         }
         toRemove.Clear();
     }
