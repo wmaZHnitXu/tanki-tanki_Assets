@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tank : DestructibleEntity
+public class Tank : DestructibleEntity, IPushable
 {
     private Turret _turret;
     public Turret turret {
@@ -48,6 +48,10 @@ public class Tank : DestructibleEntity
         health = 100.0f;
         acceleration = 50.0f;
         speed = 10f;
+    }
+
+    public void AddVelocity(Vector2 velocity) {
+        this.velocity += velocity;
     }
 
     public override void Damage(float damage)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 public class Level
@@ -43,6 +44,16 @@ public class Level
 
         RemoveRemovedEntities();
         AddAddedEntities();
+    }
+
+    private void SolveCollisions() {
+        foreach (CollideableEntity col in collideables) {
+            if (col is IPushable) {
+                foreach (CollideableEntity collidant in collideables) {
+                    if (collidant == col) continue;
+                }
+            }
+        }
     }
 
     public void AddEntity(Entity entity) {
