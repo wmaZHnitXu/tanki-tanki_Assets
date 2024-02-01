@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
+using UnityEngine;
 
 public class Level
 {
@@ -22,7 +22,7 @@ public class Level
     int[,] tiles;
 
     public HashSet<Entity> entities;
-    public HashSet<CollideableEntity> collideables;
+    public HashSet<CollideableEntity> collideables = new HashSet<CollideableEntity>();
 
     List<Entity> toRemove = new List<Entity>();
     List<Entity> toAdd = new List<Entity>();
@@ -47,13 +47,42 @@ public class Level
     }
 
     private void SolveCollisions() {
-        foreach (CollideableEntity col in collideables) {
-            if (col is IPushable) {
+        foreach (CollideableEntity pushCandidate in collideables) {
+            if (pushCandidate is IPushable) {
                 foreach (CollideableEntity collidant in collideables) {
-                    if (collidant == col) continue;
+                    if (collidant == pushCandidate) continue;
                 }
             }
         }
+    }
+
+    private Vector2 GetSeparationVector(IPushable pushable, CollideableEntity collidant) {
+        /*
+        TODO: bolee izyawnoe rewenie
+        Poka wto soidet, pywto y nas bol'we tipov collaiderov i ne planiryeca
+        */
+        Vector2 result = Vector2.zero;
+        float x = 0, y = 0;
+        Vector2 GetVectorForColliders (Collider pushableCol, Collider collidantCol) {
+            bool flag = pushableCol is CircleCollider;
+            var c1 = pushableCol;
+            var c2 = collidantCol;
+            if (c1 is CircleCollider) {
+                var circle1 = c1 as CircleCollider;
+                if (c2 is CircleCollider) {
+                    var circle2 = c2 as CircleCollider;
+                    float depth = circle1.GetPointDepth(circle2.position);
+                    depth += circle2.radius;
+                    result = (circle1.position - circle2.position) * depth;
+                }
+            }
+            else if (c1 is RectCollider) {
+                
+            }
+            //TODO : DODELAT
+            return Vector2.zero;
+        }
+        return result;
     }
 
     public void AddEntity(Entity entity) {
@@ -61,7 +90,7 @@ public class Level
     }
 
     public Entity TraceLine(Entity ignored, Vector2 from, Vector2 to, out Vector2 hitPos) {
-        hitPos = Vector2.Zero;
+        hitPos = Vector2.zero;
         return null;
     }
 

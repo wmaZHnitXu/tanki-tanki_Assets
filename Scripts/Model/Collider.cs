@@ -10,5 +10,11 @@ public abstract class Collider
             _hitBoxOnly = value;
         }
     }
-    public abstract float getPointDepth(Vector2 point);
+
+    public Vector2 position {
+        get {
+            return owner.position;
+        }
+    }
+    public abstract float GetPointDepth(Vector2 point);
 }

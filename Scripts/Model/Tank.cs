@@ -28,6 +28,7 @@ public class Tank : DestructibleEntity, IPushable
         turret.yaw = lookAngle;
 
         shootCd -= delta;
+        lookAngle += 90.0f;
         if (shootCd < 0.0f) {
             float x = Mathf.Cos(lookAngle * Mathf.Deg2Rad);
             float y = Mathf.Sin(lookAngle * Mathf.Deg2Rad);

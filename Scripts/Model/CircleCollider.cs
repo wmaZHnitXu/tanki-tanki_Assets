@@ -9,7 +9,7 @@ public class CircleCollider : Collider
             _radius = value;
         }
     }
-    public override float getPointDepth(Vector2 point)
+    public override float GetPointDepth(Vector2 point)
     {
         return radius - Vector2.Distance(point, owner.position);
     }

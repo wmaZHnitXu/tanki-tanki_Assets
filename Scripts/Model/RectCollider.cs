@@ -20,7 +20,7 @@ public class RectCollider : Collider
             _height = value;
         }
     }
-    public override float getPointDepth(Vector2 point)
+    public override float GetPointDepth(Vector2 point)
     {
         throw new System.NotImplementedException();//ne doper cho tyt 
     }
