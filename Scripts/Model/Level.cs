@@ -60,6 +60,7 @@ public class Level
         /*
         TODO: bolee izyawnoe rewenie
         Poka wto soidet, pywto y nas bol'we tipov collaiderov i ne planiryeca
+        Da ny i ewe po yrodski viglyadit no vi4islyaeca ne medlennee ne-yrodskogo varianta
         */
         Vector2 result = Vector2.zero;
         float x = 0, y = 0;
@@ -75,12 +76,17 @@ public class Level
                     depth += circle2.radius;
                     result = (circle1.position - circle2.position) * depth;
                 }
+                else if (c2 is RectCollider) {
+                    var rect2 = c2 as RectCollider;
+
+                }
+                else {
+                    return Vector2.zero;
+                }
             }
             else if (c1 is RectCollider) {
                 
             }
-            //TODO : DODELAT
-            return Vector2.zero;
         }
         return result;
     }
