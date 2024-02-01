@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Level
 {
-    private IController controller;
-
     private int _width;
     private int _height;
     public int width {
@@ -101,26 +99,25 @@ public class Level
     public Entity TraceLine(Entity ignored, Vector2 from, Vector2 to, out Vector2 hitPos) {
         float dis = Vector2.Distance(from, to);
         float counter = 0;
-        float lookAngle = controller.GetLookAngle();
         Entity result = null;
-        Vector2 resHitPos = default;
+        Vector2 resHitPos = Vector2.zero;
 
         for (;counter < dis; counter++)
         {
             float x = from.x + counter * Mathf.Cos(lookAngle * Mathf.Deg2Rad);
             float y = from.y + counter * Mathf.Sin(lookAngle * Mathf.Deg2Rad);
 
-            for (int i = 0; i < entities.Count; i++)
+            foreach (CollideableEntity entity in collideables)
             {
-                if (entities.ElementAt(i).position.x == x || entities.ElementAt(i).position.y == y)
+                if (entity.position.x == x || entity.position.y == y)
                 {
                     resHitPos = new Vector2(x, y);
-                    result = entities.ElementAt(i);
+                    result = entity;
           
                 }
                 else
                 {
-                    resHitPos = default;
+                    resHitPos = Vector2.zero;
                     result =  null;
                 }
             }
