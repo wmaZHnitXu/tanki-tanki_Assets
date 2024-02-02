@@ -25,12 +25,19 @@ public abstract class Entity
 
     public abstract void Update(Level level, float delta);
 
-    public void Kill() {
+    public void Kill(bool silent = false) {
         if (isDead) return;
         isDead = true;
         OnDeathEvent?.Invoke(this);
         OnDeathEvent = null;
-        Death();
+        ObligatoryOnRemove();
+        if (!silent) {
+            Death();
+        }
+    }
+
+    protected virtual void ObligatoryOnRemove() {
+
     }
 
     protected virtual void Death() {

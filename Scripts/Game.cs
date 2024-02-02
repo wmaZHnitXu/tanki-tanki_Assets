@@ -10,28 +10,39 @@ public class Game : MonoBehaviour
     public GameState state;
     private Level level;
     public Tank playerTank;
+    public PlayerController controller;
     public delegate void OnLevelLoad(Level level);
     public event OnLevelLoad OnLevelLoadEvent;
-    void Awake()
+    void Start()
     {
         instance = this;
         GetComponent<PresentationManager>().Initialize();
-        LoadLevel(0);
+        controller = GetComponent<PlayerControllerPC>();
         //level.DoUpdate(0.1f);
     }
 
     void Update() {
-        level.DoUpdate(Time.deltaTime * 1.0f);
+        if (state == GameState.OnLevel)
+            level.DoUpdate(Time.deltaTime * 1.0f);
         //Debug.Log(level.entities.Count);
     }
 
-    public void LoadLevel(int levelNum) {
+    public void SelectLevel(int levelNum) {
+        if (level != null) {
+            level.Destroy();
+        }
+        LoadLevel(levelNum, out playerTank);
+        GetComponent<CameraMovement>().Initialize(controller, playerTank);
+        state = GameState.OnLevel;
+    }
+
+    public void LoadLevel(int levelNum, out Tank plrtnk) {
         state = GameState.OnLevel;
 
         level = new Level(32, 32);
         OnLevelLoadEvent?.Invoke(level);
 
-        playerTank = new Tank(new Turret(), GetComponent<PlayerControllerPC>());
+        plrtnk = new Tank(new Turret(), controller);
         level.AddEntity(playerTank);
 
         level.AddEntity(new Tile(new Vector2(2f, 2f)));

@@ -187,4 +187,10 @@ public class Level
     public void RemoveEntity(Entity entity) {
         toRemove.Add(entity);
     }
+
+    public void Destroy() {
+        foreach (Entity entity in entities) {
+            entity.Kill(true);
+        }
+    }
 }

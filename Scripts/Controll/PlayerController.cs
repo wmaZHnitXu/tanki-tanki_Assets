@@ -15,4 +15,8 @@ public abstract class PlayerController : MonoBehaviour, IController
     {
         return moveDirection;
     }
+
+    public virtual Vector2 GetLookVector() {
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
 }
