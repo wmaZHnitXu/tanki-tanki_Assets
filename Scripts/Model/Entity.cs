@@ -5,7 +5,7 @@ public abstract class Entity
     private Vector2 _position;
     public Vector2 position {
         get => _position;
-        protected set {
+        set {
             _position = value;
         }
     }

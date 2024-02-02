@@ -20,6 +20,12 @@ public class RectCollider : Collider
             _height = value;
         }
     }
+
+    public RectCollider(Entity owner, float width, float height) {
+        this.owner = owner;
+        this.width = width;
+        this.height = height;
+    }
     public override float GetPointDepth(Vector2 point)
     {
         throw new System.NotImplementedException();//ne doper cho tyt 

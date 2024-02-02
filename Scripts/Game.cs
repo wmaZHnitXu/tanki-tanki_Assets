@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
         instance = this;
         GetComponent<PresentationManager>().Initialize();
         LoadLevel(0);
+        //level.DoUpdate(0.1f);
     }
 
     void Update() {
@@ -32,5 +33,15 @@ public class Game : MonoBehaviour
 
         playerTank = new Tank(new Turret(), GetComponent<PlayerControllerPC>());
         level.AddEntity(playerTank);
+
+        level.AddEntity(new Tile(new Vector2(2f, 2f)));
+        level.AddEntity(new Tile(new Vector2(1f, 1f)));
+        level.AddEntity(new Tile(new Vector2(1f, 2f)));
+        level.AddEntity(new Tile(new Vector2(1f, 3f)));
+        level.AddEntity(new Tile(new Vector2(1f, 5f)));
+        level.AddEntity(new Tile(new Vector2(1f, 6f)));
+
+        var tank = new Tank(new Turret(), null);
+        level.AddEntity(tank);
     }
 }

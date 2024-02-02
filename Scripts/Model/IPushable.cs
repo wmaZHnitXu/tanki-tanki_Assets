@@ -5,12 +5,15 @@ using UnityEngine;
 
 public interface IPushable
 {
-    void AddVelocity(Vector2 velocity);
     public List<Collider> colliders {
         get;
     }
 
     public Vector2 position {
-        get;
+        get; set;
+    }
+
+    public Vector2 velocity {
+        get; set;
     }
 }

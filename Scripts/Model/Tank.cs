@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tank : DestructibleEntity, IPushable
@@ -11,25 +12,36 @@ public class Tank : DestructibleEntity, IPushable
     }
     public float speed;
     public float acceleration;
-    public Vector2 velocity;
+
+    private Vector2 _velocity;
+    public Vector2 velocity {
+        get => _velocity;
+        set {
+            _velocity = value;
+        }
+    }
     private IController controller;
     private float shootCd;
+    private float lookAngle;
     private float maxShootCd = 0.005f;
     private int team;
     public override void Update(Level level, float delta) {
 
         velocity -= velocity * 5.0f * Time.deltaTime;
-        velocity += controller.GetMoveDirection() * acceleration * delta;
+        if (controller != null) {
+            velocity += controller.GetMoveDirection() * acceleration * delta;
+        }
         if (velocity.magnitude > speed) velocity = velocity.normalized * speed;
 
         position = position + velocity * delta;
 
-        float lookAngle = controller.GetLookAngle();
+        if (controller != null) {
+            lookAngle = controller.GetLookAngle();
+        }
         turret.yaw = lookAngle;
 
         shootCd -= delta;
-        lookAngle += 90.0f;
-        if (shootCd < 0.0f) {
+        if (false) {
             float x = Mathf.Cos(lookAngle * Mathf.Deg2Rad);
             float y = Mathf.Sin(lookAngle * Mathf.Deg2Rad);
             float cannonLength = 1.0f;
@@ -43,6 +55,9 @@ public class Tank : DestructibleEntity, IPushable
     }
 
     public Tank(Turret turret, IController controller) {
+        colliders = new List<Collider> {
+            new CircleCollider(this, 0.5f)
+        };
         this.turret = turret;
         turret.owner = this;
         this.controller = controller;

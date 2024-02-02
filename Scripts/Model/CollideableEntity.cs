@@ -7,7 +7,7 @@ public abstract class CollideableEntity : Entity
     private List<Collider> _colliders;
     public List<Collider> colliders {
         get => _colliders;
-        private set {
+        protected set {
             _colliders = value;
         }
     }

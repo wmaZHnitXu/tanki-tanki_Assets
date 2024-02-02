@@ -9,6 +9,12 @@ public class CircleCollider : Collider
             _radius = value;
         }
     }
+
+    public CircleCollider(Entity owner, float radius) {
+        this.owner = owner;
+        this.radius = radius;
+    }
+
     public override float GetPointDepth(Vector2 point)
     {
         return radius - Vector2.Distance(point, owner.position);
