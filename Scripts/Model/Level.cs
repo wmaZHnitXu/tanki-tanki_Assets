@@ -36,6 +36,11 @@ public class Level
         this.height = height;
         tiles = new int[width, height];
         entities = new HashSet<Entity>();
+        Vector2 v1;
+        Vector2 v2;
+        SolveSystem(2, 0, 1, 2, 2, out v1, out v2);
+        Debug.Log(v1);
+        Debug.Log(v2);
     }
 
     public void DoUpdate(float delta) {
@@ -129,33 +134,77 @@ public class Level
     }
 
     public Entity TraceLine(Entity ignored, Vector2 from, Vector2 to, out Vector2 hitPos) {
-        float dis = Vector2.Distance(from, to);
-        float counter = 0;
+        float k;
+        float b;
+
+        GetCoefficientsForLine(from, to, out k, out b);
+
         Entity result = null;
         Vector2 resHitPos = Vector2.zero;
 
-        for (;counter < dis; counter++)
-        {
-            float x = from.x + counter * Mathf.Cos(0 * Mathf.Deg2Rad);
-            float y = from.y + counter * Mathf.Sin(0 * Mathf.Deg2Rad);
-
-            foreach (CollideableEntity entity in collideables)
+        foreach (CollideableEntity entity in collideables){
+            foreach(Collider col in entity.colliders)
             {
-                if (entity.position.x == x || entity.position.y == y)
+                if (col is CircleCollider)
                 {
-                    resHitPos = new Vector2(x, y);
-                    result = entity;
-          
-                }
-                else
-                {
-                    resHitPos = Vector2.zero;
-                    result =  null;
+                    var circle = col as CircleCollider;
+                    Vector2 v1;
+                    Vector2 v2;
+                    SolveSystem(k, b, circle.position.x, circle.position.y, circle.radius, out v1, out v2);
+                    if(v1 != null && v2 != null)
+                    {
+                        if (Vector2.Distance(from, v1) < Vector2.Distance(from, v2))
+                        {
+                            resHitPos = v1;
+                        }
+                        else resHitPos = v2;
+
+                        result = entity;
+                    }
                 }
             }
+          
         }
+
         hitPos = resHitPos;
         return result;
+    }
+
+    private void GetCoefficientsForLine(Vector2 v1, Vector2 v2, out float k, out float b)
+    {
+        float mainDet = v1.x - v2.x;
+        float detK = v1.y - v2.y;
+        float detB = v1.x * v2.y - v2.x * v1.y;
+
+        k = detK / mainDet; 
+        b = detB / mainDet;
+
+    }
+    private void SolveSystem(float k, float b, float x0, float y0, float r, out Vector2 v1, out Vector2 v2)
+    {
+        float middleX1;
+        float middleY1; 
+        float middleX2;
+        float middleY2;
+
+        if((Mathf.Pow((-2*x0 + 2*k*(b-y0)), 2) - 4*2*k*(x0*x0 + (b - y0)*(b - y0) - r*r) < 0)){
+            v1 = Vector2.zero; v2 = Vector2.zero;
+            return;
+        }
+        else {
+            middleY1 = -SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
+            middleX1 = (middleY1 - b) / k;
+            middleY2 = SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
+            middleX2 = (middleY2 - b) / k;
+        }
+
+        float SolvePartOfY()
+        {
+            return (k * Mathf.Sqrt(-y0 * y0 + (2 * k * x0 + 2 * b) * y0 - k * k * x0 * x0 - 2 * b * k * x0 + (k * k + 1) * r * r - b * b)) / (k * k + 1);
+        }
+
+        v1 = new Vector2(middleX1, middleY1);
+        v2 = new Vector2(middleX2, middleY2);
     }
 
     private void AddAddedEntities() {
