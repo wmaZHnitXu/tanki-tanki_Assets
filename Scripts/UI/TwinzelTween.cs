@@ -29,7 +29,7 @@ public class TwinzelTween : MonoBehaviour
     [SerializeField] private Image myImageComponent;
 
     [System.Serializable]
-    public struct AnimationTW {
+    public class AnimationTW {
         public Vector3 startPos;
         public Vector3 endPos;
         public float startScale;
@@ -74,13 +74,7 @@ public class TwinzelTween : MonoBehaviour
     [SerializeField] private List<TwinzelTween> childrenTweeners = new List<TwinzelTween>();
 
     void Start() {
-        originalPosition = transform.position;
-        originalScale = transform.localScale;
-        if (myImageComponent == null) {
-            myImageComponent = GetComponent<Image>();
-        }
-
-        PlayAnimation(appearAnim);
+        
     }
 
     public void SetPosition(float x, AnimationTW anim) {
@@ -90,8 +84,10 @@ public class TwinzelTween : MonoBehaviour
     }
 
     public void SetColor(float x, AnimationTW anim) {
-        Color color = InterpColor(anim.startColor, anim.endColor, x);
-        myImageComponent.color = color;
+        if (myImageComponent != null) {
+            Color color = InterpColor(anim.startColor, anim.endColor, x);
+            myImageComponent.color = color;
+        }
     }
 
     public void SetScale(float x, AnimationTW anim) {
@@ -110,6 +106,7 @@ public class TwinzelTween : MonoBehaviour
         startTime = Time.time;
         currentAnimation = anim;
         duration = anim.defaultDuration;
+        gameObject.SetActive(true);
         inPlay = true;
     }
 
@@ -118,12 +115,23 @@ public class TwinzelTween : MonoBehaviour
         this.duration = duration;
     }
 
+    public void Appear() {
+        PlayAnimation(appearAnim);
+    }
+
+    public void Disappear() {
+        PlayAnimation(disappearAnim);
+    }
+
     void Update() {
         if (inPlay) {
             timestamp = (Time.time - startTime) / duration;
             if (timestamp >= 1.0f) {
                 timestamp = 1.0f;
                 inPlay = false;
+                if (currentAnimation == disappearAnim) {
+                    gameObject.SetActive(false);
+                }
             }
             SetAnimTimestamp(timestamp);
         }

@@ -23,7 +23,7 @@ public class Tank : DestructibleEntity, IPushable
     private IController controller;
     private float shootCd;
     private float lookAngle;
-    private float maxShootCd = 0.005f;
+    private float maxShootCd = 0.01f;
     private int team;
     public override void Update(Level level, float delta) {
 
@@ -41,13 +41,13 @@ public class Tank : DestructibleEntity, IPushable
         turret.yaw = lookAngle;
 
         shootCd -= delta;
-        if (false) {
-            float x = Mathf.Cos(lookAngle * Mathf.Deg2Rad);
-            float y = Mathf.Sin(lookAngle * Mathf.Deg2Rad);
+        if (shootCd <= 0f && controller != null) {
+            float x = Mathf.Cos((lookAngle + 90.0f) * Mathf.Deg2Rad);
+            float y = Mathf.Sin((lookAngle + 90.0f) * Mathf.Deg2Rad);
             float cannonLength = 1.0f;
             float bulletSpeed = 10.0f;
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed);
+            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
 
             level.AddEntity(bullet);
             shootCd = maxShootCd;
