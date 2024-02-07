@@ -16,13 +16,16 @@ public class Game : MonoBehaviour
     void Start()
     {
         instance = this;
-        GetComponent<PresentationManager>().Initialize();
+        FindObjectOfType<PresentationManager>().Initialize();
+        FindObjectOfType<UIManager>().Initialize();
         controller = GetComponent<PlayerControllerPC>();
+
+        UIManager.instance.activeOverlay = UIManager.MainOverlayType.Greeting;
         //level.DoUpdate(0.1f);
     }
 
     void Update() {
-        if (state == GameState.OnLevel)
+        if (level != null)
             level.DoUpdate(Time.deltaTime * 1.0f);
         //Debug.Log(level.entities.Count);
     }
@@ -33,12 +36,14 @@ public class Game : MonoBehaviour
         }
         LoadLevel(levelNum, out playerTank);
         GetComponent<CameraMovement>().Initialize(controller, playerTank);
-        state = GameState.OnLevel;
+    }
+
+    public void ExitLevel() {
+        level.Destroy();
+        level = null;
     }
 
     public void LoadLevel(int levelNum, out Tank plrtnk) {
-        state = GameState.OnLevel;
-
         level = new Level(32, 32);
         OnLevelLoadEvent?.Invoke(level);
 

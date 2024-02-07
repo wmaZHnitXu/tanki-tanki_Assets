@@ -45,7 +45,7 @@ public class Tank : DestructibleEntity, IPushable
             float x = Mathf.Cos((lookAngle + 90.0f) * Mathf.Deg2Rad);
             float y = Mathf.Sin((lookAngle + 90.0f) * Mathf.Deg2Rad);
             float cannonLength = 1.0f;
-            float bulletSpeed = 10.0f;
+            float bulletSpeed = 50.0f;
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
             Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
 

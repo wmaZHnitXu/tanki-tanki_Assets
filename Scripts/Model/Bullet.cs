@@ -4,7 +4,7 @@ public class Bullet : Entity
 {
     private Vector2 velocity;
     private float lifetime;
-    private float maxLifetime = 10.0f;
+    private float maxLifetime = 2.0f;
     private Entity owner;
 
     public Bullet(Vector2 position, Vector2 velocity, Entity owner) {

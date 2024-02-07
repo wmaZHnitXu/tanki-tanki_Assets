@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
     public enum MainOverlayType : int {
         Greeting,
         Garage,
@@ -10,24 +11,44 @@ public class UIManager : MonoBehaviour
         OnLevel
     }
 
+    public enum SmallOverlayType : int {
+        Settings,
+        Pause
+    }
+
+    [SerializeField] private SmallOverlayType _smallActiveOverlay;
+    public SmallOverlayType activeSmallOverlay {
+        get => _smallActiveOverlay;
+        set {
+            GetSmallOverlay(_smallActiveOverlay).Disappear();
+            _smallActiveOverlay = value;
+            GetSmallOverlay(_smallActiveOverlay).Appear();
+        }
+    }
+
     [SerializeField] private MainOverlayType _activeOverlay;
     public MainOverlayType activeOverlay {
         get => _activeOverlay;
         set {
-            GetOverlayTweener(_activeOverlay).Disappear();
+            GetMainOverlay(_activeOverlay).Disappear();
             _activeOverlay = value;
-            GetOverlayTweener(_activeOverlay).Appear();
+            GetMainOverlay(_activeOverlay).Appear();
         }
+    } 
+
+
+
+    [SerializeField] private List<MainOverlay> mainOverlays;
+    [SerializeField] private List<SmallOverlay> smallOverlays;
+    public MainOverlay GetMainOverlay(MainOverlayType type) {
+        return mainOverlays[(int)type];
+    }
+    public SmallOverlay GetSmallOverlay(SmallOverlayType type) {
+        return smallOverlays[(int)type];
     }
 
-
-    [SerializeField] private List<TwinzelTween> overlayTweeners;
-    public TwinzelTween GetOverlayTweener(MainOverlayType type) {
-        return overlayTweeners[(int)type];
-    }
-
-    public void ButtonSetOverlay(int overlayType) {
-        activeOverlay = (MainOverlayType)overlayType;
+    public void Initialize() {
+        instance = this;
     }
 
     public bool settingStatus;
