@@ -9,15 +9,11 @@ public class Level
     private int _height;
     public int width {
         get => _width;
-        set {
-            _width = value;
-        }
+        set => _width = value;
     }
     public int height {
         get => _height;
-        set {
-            _height = value;
-        }
+        set => _height = value;
     }
 
     int[,] tiles;

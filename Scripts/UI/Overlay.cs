@@ -6,9 +6,7 @@ public class Overlay : MonoBehaviour
     private bool _isActive;
     public bool isActive {
         get => _isActive;
-        set {
-            _isActive = value;
-        }
+        set => _isActive = value;
     }
 
     public virtual void Appear() {

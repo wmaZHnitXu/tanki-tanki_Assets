@@ -3,19 +3,15 @@ using UnityEngine;
 public abstract class Entity
 {
     private Vector2 _position;
-    public Vector2 position {
+    public virtual Vector2 position {
         get => _position;
-        set {
-            _position = value;
-        }
+        set => _position = value;   
     }
 
     private float _rotation;
     public float rotation {
         get => _rotation;
-        protected set {
-            _rotation = value;
-        }
+        protected set => _rotation = value;
     }
 
     protected bool isDead;

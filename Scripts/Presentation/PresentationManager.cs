@@ -5,27 +5,32 @@ using UnityEngine;
 public class PresentationManager : MonoBehaviour
 {
     public static PresentationManager instance;
-    public List<EntityPresentationFactory> factoryList = new List<EntityPresentationFactory>();
-    private Dictionary<Type, EntityPresentationFactory> entityFactories;
+    [SerializeField] private List<EntityFactoryEntry> entityEntries;
+
+    [Serializable]
+    public struct EntityFactoryEntry {
+        public string typeName;
+        public GameObject prefab;
+        public EntityPresentationFactory factory;
+    }
 
     public void Initialize() {
         instance = this;
-
-        factoryList.Add(gameObject.GetComponent<TankFactoryPresentation>());
-
-        entityFactories = new Dictionary<Type, EntityPresentationFactory>();
-
-        var entFactoryComponents = gameObject.GetComponents<EntityPresentationFactory>();
-        foreach (EntityPresentationFactory factory in entFactoryComponents) {
-            entityFactories.Add(factory.GetEntityType(), factory);
-        }
-
         Game.instance.OnLevelLoadEvent += SetLevelListening;
     }
 
     private void AllocatePresentation(Entity entity) {
-        var factory = entityFactories.GetValueOrDefault(entity.GetType());
-        factory.AllocatePresentation(entity);
+        EntityFactoryEntry correspondingEntry = entityEntries[0];
+        foreach (EntityFactoryEntry entry in entityEntries) {
+            if (entry.typeName == entity.GetType().ToString()) {
+                correspondingEntry = entry;
+            }
+        }
+        Debug.Log(correspondingEntry.typeName);
+        Debug.Log(correspondingEntry.factory == null);
+        Debug.Log(correspondingEntry.prefab == null);
+        
+        correspondingEntry.factory.AllocatePresentation(entity, correspondingEntry.prefab);
     }
 
     private void SetLevelListening(Level level) {

@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
             level.Destroy();
         }
         LoadLevel(levelNum, out playerTank);
-        GetComponent<CameraMovement>().Initialize(controller, playerTank);
+        FindObjectOfType<CameraMovement>().Initialize(controller, playerTank);
     }
 
     public void ExitLevel() {
@@ -47,7 +47,7 @@ public class Game : MonoBehaviour
         level = new Level(32, 32);
         OnLevelLoadEvent?.Invoke(level);
 
-        plrtnk = new Tank(new Turret(), controller);
+        plrtnk = new Tank(new TankInfo(), controller);
         level.AddEntity(playerTank);
 
         level.AddEntity(new Tile(new Vector2(2f, 2f)));
@@ -57,7 +57,7 @@ public class Game : MonoBehaviour
         level.AddEntity(new Tile(new Vector2(1f, 5f)));
         level.AddEntity(new Tile(new Vector2(1f, 6f)));
 
-        var tank = new Tank(new Turret(), null);
+        var tank = new Tank(new TankInfo(), null);
         level.AddEntity(tank);
     }
 }

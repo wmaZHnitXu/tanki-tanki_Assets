@@ -6,9 +6,7 @@ public abstract class Collider
     private bool _hitBoxOnly;
     public bool hitBoxOnly {
         get => _hitBoxOnly;
-        set {
-            _hitBoxOnly = value;
-        }
+        set => _hitBoxOnly = value;
     }
 
     public Vector2 position {

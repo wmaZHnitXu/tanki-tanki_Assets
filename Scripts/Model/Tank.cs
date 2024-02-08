@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class Tank : DestructibleEntity, IPushable
 {
+    public readonly TankInfo info;
     private Turret _turret;
     public Turret turret {
         get => _turret;
-        protected set {
-            _turret = value;
-        }
+        protected set => _turret = value;
     }
     public float speed;
     public float acceleration;
@@ -16,9 +15,7 @@ public class Tank : DestructibleEntity, IPushable
     private Vector2 _velocity;
     public Vector2 velocity {
         get => _velocity;
-        set {
-            _velocity = value;
-        }
+        set => _velocity = value;
     }
     private IController controller;
     private float shootCd;
@@ -54,16 +51,16 @@ public class Tank : DestructibleEntity, IPushable
         }
     }
 
-    public Tank(Turret turret, IController controller) {
-        colliders = new List<Collider> {
+    public Tank(TankInfo info, IController controller) {
+        this.colliders = new List<Collider> {
             new CircleCollider(this, 0.5f)
         };
-        this.turret = turret;
-        turret.owner = this;
+
+        this.turret = new ShilkaTurret(this, info);
         this.controller = controller;
-        health = 100.0f;
-        acceleration = 50.0f;
-        speed = 10f;
+        this.health = 100.0f;
+        this.acceleration = 50.0f;
+        this.speed = 10f;
     }
 
     public void AddVelocity(Vector2 velocity) {
