@@ -2610,6 +2610,9 @@ MonoBehaviour:
   - typeName: Tile
     prefab: {fileID: 5797426662289795441, guid: e762b95dad07f5346b6750b2ec958471, type: 3}
     factory: {fileID: 1787980185}
+  - typeName: ShilkaTurret
+    prefab: {fileID: 3388468004722406945, guid: c1f97cf15394afd4ca5e0f16f2b780ff, type: 3}
+    factory: {fileID: 1787980185}
 --- !u!4 &1787980187
 Transform:
   m_ObjectHideFlags: 0
