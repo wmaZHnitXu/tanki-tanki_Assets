@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EntityPresentation : MonoBehaviour
 {
     protected Entity target;
+    public GameObject prefab;
     public delegate void OnDisposed(EntityPresentation presentation);
     public event OnDisposed OnDisposedEvent;
     public virtual void SetTargetAndUpdate(Entity target) {

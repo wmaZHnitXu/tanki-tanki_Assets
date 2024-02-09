@@ -36,9 +36,18 @@ public class CommonFactoryPresentation : EntityPresentationFactory
         }
 
         result.SetTargetAndUpdate(target);
+        result.prefab = prefab;
         result.OnDisposedEvent += PutInPool;
 
         return result;
+    }
+
+    private void PutInPool(EntityPresentation presentation) {
+        
+        var pooled = objectPools[presentation.prefab];
+        presentation.OnDisposedEvent -= PutInPool;
+        //Destroy(presentation.gameObject);
+        pooled.Enqueue(presentation);
     }
 
 }

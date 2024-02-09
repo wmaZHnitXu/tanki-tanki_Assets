@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f890ae4fa838aa244b3b4ecf913a0a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
   camSpeed: 0
   camTrans: {fileID: 0}
   turret: {fileID: 8459950503059375557}
