@@ -45,4 +45,8 @@ public class MathUtil
         v1 = new Vector2(middleX1, middleY1);
         v2 = new Vector2(middleX2, middleY2);
     }
+
+    public Vector2 GetLineIntersection(float k1, float b1, float k2, float b2) {
+        return Vector2.zero;
+    }
 }
