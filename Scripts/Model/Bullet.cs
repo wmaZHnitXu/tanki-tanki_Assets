@@ -20,7 +20,6 @@ public class Bullet : Entity
         Entity e = null;
         if ((e = level.TraceLine(owner, position, nextPos, out nextPos)) != null) {
 
-            
             hitFlag = true;
             //Debug.Log((e as Tank).position);
         }

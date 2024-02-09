@@ -24,18 +24,19 @@ public class MathUtil
         float middleY1; 
         float middleX2;
         float middleY2;
-
-        if((Mathf.Pow((-2*x0 + 2*k*(b-y0)), 2) - 4*2*k*(x0*x0 + (b - y0)*(b - y0) - r*r) < 0)){
+        
+        float d = Mathf.Abs(-k * x0 + y0 - b) / Mathf.Sqrt((-k) * (-k) + 1);
+        if(d > r) {
             v1 = Vector2.positiveInfinity; v2 = Vector2.positiveInfinity;
             return;
         }
-        else {
-            middleY1 = -SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
-            middleX1 = (middleY1 - b) / k;
+        
 
-            middleY2 = SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
-            middleX2 = (middleY2 - b) / k;
-        }
+        middleY1 = -SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
+        middleX1 = (middleY1 - b) / k;
+
+        middleY2 = SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
+        middleX2 = (middleY2 - b) / k;
 
         float SolvePartOfY()
         {

@@ -20,7 +20,7 @@ public class Tank : DestructibleEntity, IPushable
     private IController controller;
     private float shootCd;
     private float lookAngle;
-    private float maxShootCd = 0.01f;
+    private float maxShootCd = 0.02f;
     private int team;
     public override void Update(Level level, float delta) {
 
