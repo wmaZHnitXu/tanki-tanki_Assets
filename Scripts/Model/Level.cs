@@ -74,6 +74,9 @@ public class Level
         Vector2 result = Vector2.zero;
 
         Vector2 GetVectorForColliders (Collider pushableCol, Collider collidantCol) {
+            
+            if (pushableCol.hitBoxOnly || collidantCol.hitBoxOnly) return Vector2.zero;
+
             Vector2 vector = Vector2.zero;
             bool flag = pushableCol is CircleCollider;
             var c1 = pushableCol;
@@ -117,7 +120,17 @@ public class Level
             return vector;
         }
 
-        return GetVectorForColliders(pushable.colliders.First(), collidant.colliders.First());
+        Vector2 bestVector = Vector2.zero;
+        foreach (Collider col1 in pushable.colliders) {
+            foreach (Collider col2 in collidant.colliders) {
+                Vector2 separ = GetVectorForColliders(col1, col2);
+                if (bestVector.magnitude < separ.magnitude) {
+                    bestVector = separ;
+                }
+            }
+        }
+
+        return bestVector;
     }
 
     public void AddEntity(Entity entity) {
@@ -172,6 +185,7 @@ public class Level
 
                         Vector2 lineStart = tuple.Item1;
                         Vector2 lineEnd = tuple.Item2;
+
                         float k1, b1;
                         MathUtil.GetCoefficientsForLine(lineStart, lineEnd, out k1, out b1);
                         Vector2 sideIntersection;

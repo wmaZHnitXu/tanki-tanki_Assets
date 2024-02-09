@@ -31,6 +31,8 @@ public class Tank : DestructibleEntity, IPushable
         if (velocity.magnitude > speed) velocity = velocity.normalized * speed;
 
         position = position + velocity * delta;
+        if (velocity != Vector2.zero)
+            rotation = MathUtil.GetAngleFromVec(velocity);
 
         if (controller != null) {
             lookAngle = controller.GetLookAngle();
@@ -53,7 +55,8 @@ public class Tank : DestructibleEntity, IPushable
 
     public Tank(TankInfo info, IController controller) {
         this.colliders = new List<Collider> {
-            new CircleCollider(this, 0.5f)
+            new CircleCollider(this, 0.5f),
+            new RectCollider(this, 1.0f, 1.0f, true)
         };
 
         this.turret = new ShilkaTurret(this, info);

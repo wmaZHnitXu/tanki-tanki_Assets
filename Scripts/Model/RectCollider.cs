@@ -37,6 +37,13 @@ public class RectCollider : Collider
         this.width = width;
         this.height = height;
     }
+
+    public RectCollider(Entity owner, float width, float height, bool isHitbox) {
+        this.owner = owner;
+        this.width = width;
+        this.height = height;
+        this.hitBoxOnly = isHitbox;
+    }
     public override float GetPointDepth(Vector2 point)
     {
         throw new System.NotImplementedException();//ne doper cho tyt 
@@ -65,14 +72,25 @@ public class RectCollider : Collider
                 break;
         }
 
-        float cos = Mathf.Cos(angle * Mathf.Deg2Rad);
-        float sin = Mathf.Sin(angle * Mathf.Deg2Rad);
+        float fromLen = from.magnitude;
+        from = from.normalized;
+        float fromAngle = Mathf.Atan2(from.x, from.y);
 
-        from = new Vector2(from.x * cos + from.y * sin, from.y * cos + from.x * sin);
-        to = new Vector2(to.x * cos + to.y * sin, to.y * cos + to.x * sin);
+        float toLen = to.magnitude;
+        to = to.normalized;
+        float toAngle = Mathf.Atan2(to.x, to.y);
 
-        from += position;
-        to += position;
+        float radAngle = angle * Mathf.Deg2Rad;
+
+        float xFrom = Mathf.Cos(fromAngle + radAngle);
+        float yFrom = Mathf.Sin(fromAngle + radAngle);
+
+        from = new Vector2(xFrom, yFrom) * fromLen + position;
+        
+        float xTo = Mathf.Cos(toAngle + radAngle);
+        float yTo = Mathf.Sin(toAngle + radAngle);
+
+        to = new Vector2(xTo, yTo) * toLen + position;
 
         return new Tuple<Vector2, Vector2>(from, to);
     }

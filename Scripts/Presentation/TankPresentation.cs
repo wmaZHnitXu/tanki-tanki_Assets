@@ -20,7 +20,7 @@ public class TankPresentation : EntityPresentation
     {
         transform.position = tank.position;
         turret.localRotation = Quaternion.Euler(0,0, tank.turret.yaw);
-        body.localRotation = Quaternion.Euler(0,0, MathUtil.GetAngleFromVec(tank.velocity));
+        body.localRotation = Quaternion.Euler(0,0, tank.rotation);
 
         if (camTrans == null) return;
         Vector3 camTarget = new Vector3(transform.position.x, transform.position.y, camTrans.position.z);

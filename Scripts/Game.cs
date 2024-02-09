@@ -25,8 +25,22 @@ public class Game : MonoBehaviour
     }
 
     void Update() {
-        if (level != null)
+        if (level != null) {
             level.DoUpdate(Time.deltaTime * 1.0f);
+
+            for (int i = 0; i < 4; i++) {
+                RectCollider rect = playerTank.colliders[1] as RectCollider;
+                var tuple = rect.GetSideLine((RectCollider.Side)i);
+
+                Vector2 lineStart = tuple.Item1;
+                Vector2 lineEnd = tuple.Item2;
+
+                var v1 = new Vector3(lineStart.x, lineStart.y, 0.1f);
+                var v2 = new Vector3(lineEnd.x, lineEnd.y, 0.1f);
+
+                Debug.DrawLine(v1, v2, Color.red, 1.0f, true);
+            }
+        }
         //Debug.Log(level.entities.Count);
     }
 
