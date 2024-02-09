@@ -47,6 +47,10 @@ public class MathUtil
     }
 
     public Vector2 GetLineIntersection(float k1, float b1, float k2, float b2) {
-        return Vector2.zero;
+        float y = (b2 - ((b1 * k2) / k1)) / (1 - (k2 / k1));
+
+        float x = -((b1 - y) / k1);
+
+        return new Vector2(x, y);
     }
 }
