@@ -26,9 +26,9 @@ public class PresentationManager : MonoBehaviour
                 correspondingEntry = entry;
             }
         }
-        Debug.Log(correspondingEntry.typeName);
-        Debug.Log(correspondingEntry.factory == null);
-        Debug.Log(correspondingEntry.prefab == null);
+        //Debug.Log(correspondingEntry.typeName);
+        //Debug.Log(correspondingEntry.factory == null);
+        //Debug.Log(correspondingEntry.prefab == null);
         
         correspondingEntry.factory.AllocatePresentation(entity, correspondingEntry.prefab);
     }

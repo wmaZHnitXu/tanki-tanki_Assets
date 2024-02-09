@@ -18,7 +18,7 @@ public class MathUtil
         b = detB / mainDet;
 
     }
-    public static void SolveSystem(float k, float b, float x0, float y0, float r, out Vector2 v1, out Vector2 v2)
+    public static void SolveItersectionOfCircleAndLine(float k, float b, float x0, float y0, float r, out Vector2 v1, out Vector2 v2)
     {
         float middleX1;
         float middleY1; 
@@ -32,13 +32,14 @@ public class MathUtil
         else {
             middleY1 = -SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
             middleX1 = (middleY1 - b) / k;
+
             middleY2 = SolvePartOfY() + (+k * k * y0 + k * x0 + b) / (k * k + 1);
             middleX2 = (middleY2 - b) / k;
         }
 
         float SolvePartOfY()
         {
-            return (k * Mathf.Sqrt(-y0 * y0 + (2 * k * x0 + 2 * b) * y0 - k * k * x0 * x0 - 2 * b * k * x0 + (k * k + 1) * r * r - b * b)) / (k * k + 1);
+            return (k * Mathf.Sqrt(-(y0 * y0) + (2 * k * x0 + 2 * b) * y0 - (k * k * x0 * x0) - (2 * b * k * x0) + (k * k + 1) * r * r - (b * b))) / (k * k + 1);
         }
 
         v1 = new Vector2(middleX1, middleY1);

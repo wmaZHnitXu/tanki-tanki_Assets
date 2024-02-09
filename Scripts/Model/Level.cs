@@ -145,12 +145,19 @@ public class Level
                     var circle = col as CircleCollider;
                     Vector2 v1;
                     Vector2 v2;
-                    MathUtil.SolveSystem(k, b, circle.position.x, circle.position.y, circle.radius, out v1, out v2);
+
+
+                    MathUtil.SolveItersectionOfCircleAndLine(k, b, circle.position.x, circle.position.y, circle.radius, out v1, out v2);
+
+                    Debug.Log("v1 " + v1);
+                    Debug.Log("v2 " + v2);
 
                     float d1 = Vector2.Distance(from, v1);
                     float d2 = Vector2.Distance(from, v2);
+
                     if (d >= d1 || d >= d2) {
-                        result = entity;
+                        Debug.Log(true);
+                        result = entity;    
                         hitPos = d1 < d2 ? v1 : v2;
                         d = d1 < d2 ? d1 : d2;
                         return result;
