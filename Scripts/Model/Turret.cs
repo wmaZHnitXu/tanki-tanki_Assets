@@ -10,6 +10,12 @@ public abstract class Turret : AttachedEntity
         set => rotation = value;
     }
 
+    private bool _isFiring;
+    public bool isFiring {
+        get => _isFiring;
+        set => _isFiring = value;
+    }
+
     public delegate void OnReloading();
     public event OnReloading OnReloadingEvent;
     
@@ -18,9 +24,6 @@ public abstract class Turret : AttachedEntity
         this.type = info.turretType;
         this.level = info.turretLevel;
     }
-
-    public abstract int GetAmmoCount();
-    public abstract int GetMaxAmmo();
 
     public static Turret Create(Tank owner, TankInfo info) {
         switch (info.turretType) {

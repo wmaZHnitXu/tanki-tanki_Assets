@@ -8,8 +8,9 @@ public class TankInfo
         cannon,
         tesla,
         rocket,
-        laser,
-        rail
+        rail,
+        laser
+        
     }
 
     public TurretType turretType;

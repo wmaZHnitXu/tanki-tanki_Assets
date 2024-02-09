@@ -61,7 +61,7 @@ public class Game : MonoBehaviour
         level = new Level(32, 32);
         OnLevelLoadEvent?.Invoke(level);
 
-        plrtnk = new Tank(new TankInfo(), controller);
+        plrtnk = new Tank(new TankInfo(), controller, level);
         level.AddEntity(playerTank);
 
         level.AddEntity(new Tile(new Vector2(2f, 2f)));
@@ -71,7 +71,7 @@ public class Game : MonoBehaviour
         level.AddEntity(new Tile(new Vector2(1f, 5f)));
         level.AddEntity(new Tile(new Vector2(1f, 6f)));
 
-        var tank = new Tank(new TankInfo(), null);
+        var tank = new Tank(new TankInfo(), null, level);
         level.AddEntity(tank);
     }
 }

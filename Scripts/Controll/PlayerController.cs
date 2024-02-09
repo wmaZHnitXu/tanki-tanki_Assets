@@ -19,4 +19,6 @@ public abstract class PlayerController : MonoBehaviour, IController
     public virtual Vector2 GetLookVector() {
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
+
+    public abstract bool IsFiring();
 }

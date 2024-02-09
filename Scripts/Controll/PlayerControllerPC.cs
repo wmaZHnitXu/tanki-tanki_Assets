@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class PlayerControllerPC : PlayerController
 {
+    public override bool IsFiring()
+    {
+        return Input.GetMouseButton(0);
+    }
+
     void Start() {
         current = this;
     }
@@ -30,4 +35,6 @@ public class PlayerControllerPC : PlayerController
         mouseDir = new Vector2(mouseDir.x - Screen.width / 2, mouseDir.y - Screen.height / 2);
         angle = MathUtil.GetAngleFromVec(mouseDir);
     }
+
+    
 }

@@ -37,29 +37,25 @@ public class Tank : DestructibleEntity, IPushable
         if (controller != null) {
             lookAngle = controller.GetLookAngle();
         }
+
+        //TURRET
         turret.yaw = lookAngle;
-
-        shootCd -= delta;
-        if (shootCd <= 0f && controller != null) {
-            float x = Mathf.Cos((lookAngle + 90.0f) * Mathf.Deg2Rad);
-            float y = Mathf.Sin((lookAngle + 90.0f) * Mathf.Deg2Rad);
-            float cannonLength = 1.0f;
-            float bulletSpeed = 50.0f;
-            Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
-
-            level.AddEntity(bullet);
-            shootCd = maxShootCd;
+        if (controller != null) {
+            turret.isFiring = controller.IsFiring();
         }
     }
 
-    public Tank(TankInfo info, IController controller) {
+    public Tank(TankInfo info, IController controller, Level level) {
         this.colliders = new List<Collider> {
             new CircleCollider(this, 0.5f),
             new RectCollider(this, 1.0f, 1.0f, true)
         };
 
-        this.turret = new ShilkaTurret(this, info);
+        var turret = new ShilkaTurret(this, info);
+        level.AddEntity(turret);
+        
+
+        this.turret = turret;
         this.controller = controller;
         this.health = 100.0f;
         this.acceleration = 50.0f;
