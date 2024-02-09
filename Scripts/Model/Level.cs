@@ -112,7 +112,7 @@ public class Level
                 }
             }
             else if (c1 is RectCollider) {
-                
+
             }
             return vector;
         }
@@ -130,6 +130,7 @@ public class Level
         float d = Vector2.Distance(from, to);
 
         MathUtil.GetCoefficientsForLine(from, to, out k, out b);
+        if (from.x == to.x) k = float.MaxValue;
 
         Entity result = null;
         hitPos = to;
@@ -149,18 +150,55 @@ public class Level
 
                     MathUtil.SolveItersectionOfCircleAndLine(k, b, circle.position.x, circle.position.y, circle.radius, out v1, out v2);
 
-                    Debug.Log("v1 " + v1);
-                    Debug.Log("v2 " + v2);
+                    //Debug.Log("v1 " + v1);
+                    //Debug.Log("v2 " + v2);
 
                     float d1 = Vector2.Distance(from, v1);
                     float d2 = Vector2.Distance(from, v2);
 
                     if (d >= d1 || d >= d2) {
-                        Debug.Log(true);
+                        //Debug.Log(true);
                         result = entity;    
                         hitPos = d1 < d2 ? v1 : v2;
                         d = d1 < d2 ? d1 : d2;
-                        return result;
+                    }
+                }
+                else if (col is RectCollider) {
+                    var rect = col as RectCollider;
+                    for (int i = 0; i < 4; i++) {
+                        var side = (RectCollider.Side)i;
+
+                        var tuple = rect.GetSideLine(side);
+
+                        Vector2 lineStart = tuple.Item1;
+                        Vector2 lineEnd = tuple.Item2;
+                        float k1, b1;
+                        MathUtil.GetCoefficientsForLine(lineStart, lineEnd, out k1, out b1);
+                        Vector2 sideIntersection;
+                        if (lineStart.x == lineEnd.x) {
+                            float x = lineStart.x;
+                            float y = k * x + b;
+                            sideIntersection = new Vector2(x, y);
+                        }
+                        else {
+                            sideIntersection = MathUtil.GetLineIntersection(k, b, k1, b1);
+                        }
+
+                        float len1, d0, d1, len2, d2, d3;
+
+                        len1 = Vector2.Distance(from, to);
+                        d0 = Vector2.Distance(from, sideIntersection);
+                        d1 = Vector2.Distance(to, sideIntersection);
+
+                        len2 = Vector2.Distance(lineStart, lineEnd);
+                        d2 = Vector2.Distance(lineStart, sideIntersection);
+                        d3 = Vector2.Distance(lineEnd, sideIntersection);
+
+                        if ((d0 < len1 && d1 < len1) && (d2 < len2 && d3 < len2) && d0 < d) {
+                            result = entity;    
+                            hitPos = sideIntersection;
+                            d = d0;
+                        }
                     }
                 }
             }

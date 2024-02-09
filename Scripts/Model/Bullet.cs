@@ -21,7 +21,7 @@ public class Bullet : Entity
         if ((e = level.TraceLine(owner, position, nextPos, out nextPos)) != null) {
 
             
-            //hitFlag = true;
+            hitFlag = true;
             //Debug.Log((e as Tank).position);
         }
 
