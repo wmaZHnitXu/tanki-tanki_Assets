@@ -51,7 +51,7 @@ public class Tank : DestructibleEntity, IPushable
             new RectCollider(this, 1.0f, 1.0f, true)
         };
 
-        var turret = new ShilkaTurret(this, info);
+        var turret = new ShotgunTurret(this, info);
         level.AddEntity(turret);
         
 
