@@ -23,7 +23,7 @@ public class Bullet : Entity
 
             if (e is DestructibleEntity) {
                 var d = e as DestructibleEntity;
-                d.Damage(damage, position);
+                d.Damage(damage, nextPos);
                 Kill();
                 return;
             }

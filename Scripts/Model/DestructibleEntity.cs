@@ -18,12 +18,12 @@ public abstract class DestructibleEntity : CollideableEntity
 
     public virtual void Damage(float damage) {
         health -= damage;
-        OnDamageEvent.Invoke(this, damage, position);
+        OnDamageEvent?.Invoke(this, damage, position);
 
     }
 
     public virtual void Damage(float damage, Vector2 hitPos) {
         health -= damage;
-        OnDamageEvent.Invoke(this, damage, hitPos);
+        OnDamageEvent?.Invoke(this, damage, hitPos);
     }
 }

@@ -65,14 +65,4 @@ public class Tank : DestructibleEntity, IPushable
     public void AddVelocity(Vector2 velocity) {
         this.velocity += velocity;
     }
-
-    public override void Damage(float damage)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Damage(float damage, Vector2 hitPos)
-    {
-        throw new System.NotImplementedException();
-    }
 }

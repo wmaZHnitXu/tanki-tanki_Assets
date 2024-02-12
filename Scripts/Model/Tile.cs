@@ -11,15 +11,6 @@ public class Tile : DestructibleEntity
         };
         this.position = position;
     }
-    public override void Damage(float damage)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Damage(float damage, Vector2 hitPos)
-    {
-        throw new System.NotImplementedException();
-    }
 
     public override void Update(Level level, float delta)
     {
