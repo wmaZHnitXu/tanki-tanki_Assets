@@ -29,6 +29,8 @@ public abstract class Turret : AttachedEntity
         switch (info.turretType) {
             case TurretType.shilka:
                 return new ShilkaTurret(owner, info);
+            case TurretType.shotgun:
+                return new ShotgunTurret(owner, info);
             default:
                 throw new NotImplementedException();
         }
