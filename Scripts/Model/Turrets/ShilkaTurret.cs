@@ -21,7 +21,7 @@ public class ShilkaTurret : Turret
             float cannonLength = 1.0f;
             float bulletSpeed = 50.0f;
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
+            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
 
             level.AddEntity(bullet);
             shootCd = maxShootCd;

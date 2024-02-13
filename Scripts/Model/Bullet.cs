@@ -17,7 +17,6 @@ public class Bullet : Entity
     public override void Update(Level level, float delta)
     {
         Vector2 nextPos = position + velocity * delta;
-        bool hitFlag = false;
         Entity e = null;
         if ((e = level.TraceLine(owner, position, nextPos, out nextPos)) != null) {
 

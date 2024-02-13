@@ -31,13 +31,13 @@ public class ShotgunTurret : Turret
             float yR = Mathf.Sin((rotation + 90.0f - angle) * Mathf.Deg2Rad);
 
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
+            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
 
             Vector2 leftBulletPos = position + (new Vector2(xL, yL) * cannonLength);
-            Bullet bulletL = new Bullet(leftBulletPos, new Vector2(xL, yL) * bulletSpeed, this);
+            Bullet bulletL = new Bullet(leftBulletPos, new Vector2(xL, yL) * bulletSpeed + velocity, owner);
 
             Vector2 rightBulletPos = position + (new Vector2(xR, yR) * cannonLength);
-            Bullet bulletR = new Bullet(rightBulletPos, new Vector2(xR, yR) * bulletSpeed, this);
+            Bullet bulletR = new Bullet(rightBulletPos, new Vector2(xR, yR) * bulletSpeed + velocity, owner);
 
             level.AddEntity(bullet);
             level.AddEntity(bulletL);

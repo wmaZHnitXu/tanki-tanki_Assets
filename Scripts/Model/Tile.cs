@@ -10,6 +10,9 @@ public class Tile : DestructibleEntity
             new RectCollider(this, 1f, 1f)
         };
         this.position = position;
+
+        this.maxHealth = 100.0f;
+        this.health = this.maxHealth;
     }
 
     public override void Update(Level level, float delta)

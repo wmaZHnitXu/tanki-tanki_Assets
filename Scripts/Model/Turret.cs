@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using static TankInfo;
 
 public abstract class Turret : AttachedEntity
@@ -10,11 +11,17 @@ public abstract class Turret : AttachedEntity
         set => rotation = value;
     }
 
+    public Vector2 velocity {
+        get => ownerTank.velocity;
+    }
+
     private bool _isFiring;
     public bool isFiring {
         get => _isFiring;
         set => _isFiring = value;
     }
+
+    protected Tank ownerTank;
 
     public delegate void OnReloading();
     public event OnReloading OnReloadingEvent;
@@ -23,6 +30,7 @@ public abstract class Turret : AttachedEntity
     public Turret(Tank owner, TankInfo info) : base(owner) {
         this.type = info.turretType;
         this.level = info.turretLevel;
+        this.ownerTank = owner as Tank;
     }
 
     public static Turret Create(Tank owner, TankInfo info) {

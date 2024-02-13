@@ -6,12 +6,13 @@ public abstract class DestructibleEntity : CollideableEntity
     public float health {
         get => _health;
         protected set {
-            _health = health;
+            _health = value;
             if (health < 0f && !isDead) {
                 Kill();
             }
         }
     }
+    public float maxHealth;
 
     public delegate void OnDamage(DestructibleEntity destructible, float amount, Vector2 from);
     public event OnDamage OnDamageEvent;

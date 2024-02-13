@@ -4,7 +4,11 @@ using UnityEngine;
 
 public abstract class EntityPresentation : MonoBehaviour
 {
-    protected Entity target;
+    private Entity _target;
+    public Entity target {
+        get => _target;
+        protected set => _target = value;
+    }
     public GameObject prefab;
     public delegate void OnDisposed(EntityPresentation presentation);
     public event OnDisposed OnDisposedEvent;
@@ -17,6 +21,8 @@ public abstract class EntityPresentation : MonoBehaviour
 
     public virtual void Dispose(Entity ent) {
         gameObject.SetActive(false);
+        target.OnDeathEvent -= Dispose;
+        target = null;
         OnDisposedEvent?.Invoke(this);
     }
 }

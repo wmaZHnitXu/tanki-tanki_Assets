@@ -18,6 +18,8 @@ public class Game : MonoBehaviour
         instance = this;
         FindObjectOfType<PresentationManager>().Initialize();
         FindObjectOfType<UIManager>().Initialize();
+        FindObjectOfType<HealthBarsController>().Initialize();
+        FindObjectOfType<ParticleSystems>().Initialize();
         controller = GetComponent<PlayerControllerPC>();
 
         UIManager.instance.activeOverlay = UIManager.MainOverlayType.Greeting;

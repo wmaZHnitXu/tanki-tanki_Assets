@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -53,5 +54,17 @@ public class MathUtil
         float x = -((b1 - y) / k1);
 
         return new Vector2(x, y);
+    }
+
+    public static Tuple<float, float> GetPolarOfVector(Vector2 vector) {
+        float length = vector.magnitude;
+        vector = vector.normalized;
+        float angle = math.atan2(vector.x, vector.y);
+
+        return new Tuple<float, float>(angle, length);
+    }
+
+    public static Vector2 GetVectorOfPolar(float angle, float length) {
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * length;
     }
 }

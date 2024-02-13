@@ -8,6 +8,10 @@ public class PlayerControllerPC : PlayerController
         return Input.GetMouseButton(0);
     }
 
+    Vector2 mouseDir;
+
+    [SerializeField] Camera cam;
+
     void Start() {
         current = this;
     }
@@ -31,10 +35,21 @@ public class PlayerControllerPC : PlayerController
         moveDirection = moveDirection.normalized;
 
 
-        Vector2 mouseDir = Input.mousePosition;
+        mouseDir = Input.mousePosition;
         mouseDir = new Vector2(mouseDir.x - Screen.width / 2, mouseDir.y - Screen.height / 2);
-        angle = MathUtil.GetAngleFromVec(mouseDir);
     }
 
-    
+    public override Vector2 GetLookVector()
+    {
+        float wSqr = Screen.width * Screen.width;
+        float hSqr = Screen.height * Screen.height;
+        return mouseDir / Mathf.Sqrt(wSqr + hSqr);
+    }
+
+    public override float GetLookAngle(Vector2 position)
+    {
+        Vector3 worldMousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        angle = MathUtil.GetAngleFromVec((Vector2)worldMousePos - position);
+        return angle;
+    }
 }

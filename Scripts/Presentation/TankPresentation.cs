@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TankPresentation : EntityPresentation
+public class TankPresentation : DestructiblePresentation
 {
     [SerializeField] float camSpeed;
     [SerializeField] Transform camTrans;

@@ -35,7 +35,7 @@ public class Tank : DestructibleEntity, IPushable
             rotation = MathUtil.GetAngleFromVec(velocity);
 
         if (controller != null) {
-            lookAngle = controller.GetLookAngle();
+            lookAngle = controller.GetLookAngle(position);
         }
 
         //TURRET
@@ -51,13 +51,14 @@ public class Tank : DestructibleEntity, IPushable
             new RectCollider(this, 1.0f, 1.0f, true)
         };
 
-        var turret = new ShotgunTurret(this, info);
+        var turret = Turret.Create(this, info);
         level.AddEntity(turret);
         
 
         this.turret = turret;
         this.controller = controller;
-        this.health = 100.0f;
+        this.maxHealth = 100.0f;
+        this.health = this.maxHealth;
         this.acceleration = 50.0f;
         this.speed = 10f;
     }
