@@ -21,8 +21,15 @@ public abstract class Entity
 
     public delegate void OnDestruction(Entity sender);
     public event OnDestruction OnDestructionEvent;
+    protected readonly Level level;
+    public Entity(Level level) {
+        this.level = level;
+        level.AddEntity(this);
+    }
 
-    public abstract void Update(Level level, float delta);
+    public virtual void Update(float delta) {
+
+    }
 
     public void Kill(bool silent = false) {
         if (isDead) return;

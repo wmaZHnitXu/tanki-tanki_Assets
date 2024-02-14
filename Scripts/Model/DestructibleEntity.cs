@@ -14,6 +14,8 @@ public abstract class DestructibleEntity : CollideableEntity
     }
     public float maxHealth;
 
+    protected DestructibleEntity(Level level) : base(level) {}
+
     public delegate void OnDamage(DestructibleEntity destructible, float amount, Vector2 from);
     public event OnDamage OnDamageEvent;
 
@@ -27,4 +29,6 @@ public abstract class DestructibleEntity : CollideableEntity
         health -= damage;
         OnDamageEvent?.Invoke(this, damage, hitPos);
     }
+
+    public abstract bool MustBeDestroyedForLevelToEnd();
 }

@@ -22,7 +22,7 @@ public class Tank : DestructibleEntity, IPushable
     private float lookAngle;
     private float maxShootCd = 0.02f;
     private int team;
-    public override void Update(Level level, float delta) {
+    public override void Update(float delta) {
 
         velocity -= velocity * 5.0f * Time.deltaTime;
         if (controller != null) {
@@ -45,15 +45,13 @@ public class Tank : DestructibleEntity, IPushable
         }
     }
 
-    public Tank(TankInfo info, IController controller, Level level) {
+    public Tank(Level level, TankInfo info, IController controller) : base(level) {
         this.colliders = new List<Collider> {
             new CircleCollider(this, 0.5f),
             new RectCollider(this, 1.0f, 1.0f, true)
         };
 
-        var turret = Turret.Create(this, info);
-        level.AddEntity(turret);
-        
+        var turret = Turret.Create(level, this, info);        
 
         this.turret = turret;
         this.controller = controller;
@@ -65,5 +63,15 @@ public class Tank : DestructibleEntity, IPushable
 
     public void AddVelocity(Vector2 velocity) {
         this.velocity += velocity;
+    }
+
+    public override bool MustBeDestroyedForLevelToEnd()
+    {
+        return !(controller is PlayerController);
+    }
+
+    public bool CanPush(IPushable pushable)
+    {
+        return true;
     }
 }

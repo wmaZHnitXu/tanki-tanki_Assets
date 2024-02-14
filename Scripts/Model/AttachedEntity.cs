@@ -9,7 +9,7 @@ public abstract class AttachedEntity : Entity
         get => owner.position; 
         set => owner.position = value;
     }
-    public AttachedEntity(Entity owner) {
+    public AttachedEntity(Level level, Entity owner) : base(level) {
         this.owner = owner;
         owner.OnDeathEvent += OwnerDeath;
     }

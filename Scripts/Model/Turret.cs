@@ -5,7 +5,7 @@ using static TankInfo;
 public abstract class Turret : AttachedEntity
 {
     public readonly TurretType type;
-    public readonly int level;
+    public readonly int turretLevel;
     public float yaw {
         get => rotation;
         set => rotation = value;
@@ -27,18 +27,20 @@ public abstract class Turret : AttachedEntity
     public event OnReloading OnReloadingEvent;
     
 
-    public Turret(Tank owner, TankInfo info) : base(owner) {
+    public Turret(Level level, Tank owner, TankInfo info) : base(level, owner) {
         this.type = info.turretType;
-        this.level = info.turretLevel;
+        this.turretLevel = info.turretLevel;
         this.ownerTank = owner as Tank;
     }
 
-    public static Turret Create(Tank owner, TankInfo info) {
+    public static Turret Create(Level level, Tank owner, TankInfo info) {
+        if (false)
+        return new ShotgunTurret(level, owner, info);
         switch (info.turretType) {
             case TurretType.shilka:
-                return new ShilkaTurret(owner, info);
+                return new ShilkaTurret(level, owner, info);
             case TurretType.shotgun:
-                return new ShotgunTurret(owner, info);
+                return new ShotgunTurret(level, owner, info);
             default:
                 throw new NotImplementedException();
         }

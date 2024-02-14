@@ -16,4 +16,6 @@ public interface IPushable
     public Vector2 velocity {
         get; set;
     }
+
+    public abstract bool CanPush(IPushable pushable);
 }

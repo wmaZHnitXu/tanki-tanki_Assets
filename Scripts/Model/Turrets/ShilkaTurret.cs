@@ -6,12 +6,12 @@ public class ShilkaTurret : Turret
 {
     private float shootCd;
     private float maxShootCd = 0.02f;
-    public ShilkaTurret(Tank owner, TankInfo info) : base(owner, info)
+    public ShilkaTurret(Level level, Tank owner, TankInfo info) : base(level, owner, info)
     {
 
     }
 
-    public override void Update(Level level, float delta)
+    public override void Update(float delta)
     {
         shootCd -= delta;
         if (shootCd <= 0f && isFiring) {
@@ -21,9 +21,8 @@ public class ShilkaTurret : Turret
             float cannonLength = 1.0f;
             float bulletSpeed = 50.0f;
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
+            Bullet bullet = new Bullet(level, bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
 
-            level.AddEntity(bullet);
             shootCd = maxShootCd;
         }
     }

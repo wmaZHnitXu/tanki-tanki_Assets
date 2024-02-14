@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour
         Vector2 addition = lookPos * 14.0f;
         addition = addition.normalized * Mathf.Min(addition.magnitude, 2.0f);
         Vector2 tankPos = playerTank.position;
-        addition = Vector2.MoveTowards(oldAddition, addition, followSpeed * Time.deltaTime);
+        addition = Vector2.Lerp(oldAddition, addition, followSpeed * Time.deltaTime);
 
         shakeAddition += shakeVel * Time.deltaTime;
 

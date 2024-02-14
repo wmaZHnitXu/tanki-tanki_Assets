@@ -7,19 +7,19 @@ public class ShotgunTurret : Turret
     private float shootCd;
     private float maxShootCd = 0.5f;
 
-    public ShotgunTurret(Tank owner, TankInfo info) : base(owner, info)
+    public ShotgunTurret(Level level, Tank owner, TankInfo info) : base(level, owner, info)
     {
 
     }
-    public override void Update(Level level, float delta)
+    public override void Update(float delta)
     {
         shootCd -= delta;
         if (shootCd <= 0f && isFiring)
         {
             float cannonLength = 1.0f;
-            float bulletSpeed = 10.0f;
+            float bulletSpeed = 20.0f;
 
-            float angle = 20.0f;
+            float angle = 10.0f;
             
             float x = Mathf.Cos((rotation + 90.0f) * Mathf.Deg2Rad);
             float y = Mathf.Sin((rotation + 90.0f) * Mathf.Deg2Rad);
@@ -31,17 +31,14 @@ public class ShotgunTurret : Turret
             float yR = Mathf.Sin((rotation + 90.0f - angle) * Mathf.Deg2Rad);
 
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            Bullet bullet = new Bullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
+            Bullet bullet = new Bullet(level, bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
 
             Vector2 leftBulletPos = position + (new Vector2(xL, yL) * cannonLength);
-            Bullet bulletL = new Bullet(leftBulletPos, new Vector2(xL, yL) * bulletSpeed + velocity, owner);
+            Bullet bulletL = new Bullet(level, leftBulletPos, new Vector2(xL, yL) * bulletSpeed + velocity, owner);
 
             Vector2 rightBulletPos = position + (new Vector2(xR, yR) * cannonLength);
-            Bullet bulletR = new Bullet(rightBulletPos, new Vector2(xR, yR) * bulletSpeed + velocity, owner);
+            Bullet bulletR = new Bullet(level, rightBulletPos, new Vector2(xR, yR) * bulletSpeed + velocity, owner);
 
-            level.AddEntity(bullet);
-            level.AddEntity(bulletL);
-            level.AddEntity(bulletR);
             shootCd = maxShootCd;
         }
     }
