@@ -18,9 +18,7 @@ public class Tank : DestructibleEntity, IPushable
         set => _velocity = value;
     }
     private IController controller;
-    private float shootCd;
     private float lookAngle;
-    private float maxShootCd = 0.02f;
     private int team;
     public override void Update(float delta) {
 
@@ -59,6 +57,8 @@ public class Tank : DestructibleEntity, IPushable
         this.health = this.maxHealth;
         this.acceleration = 50.0f;
         this.speed = 10f;
+
+        this.team = (controller is PlayerController) ? 0 : 1;
     }
 
     public void AddVelocity(Vector2 velocity) {
@@ -72,6 +72,11 @@ public class Tank : DestructibleEntity, IPushable
 
     public bool CanPush(IPushable pushable)
     {
+        if (pushable is CollectableEntity) return false;
         return true;
+    }
+
+    public override float GetOuterRadius() {
+        return 1.4142f;
     }
 }

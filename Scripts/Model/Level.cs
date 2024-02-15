@@ -19,8 +19,8 @@ public class Level
 
     int[,] tiles;
 
-    public HashSet<Entity> entities;
-    public HashSet<CollideableEntity> collideables = new HashSet<CollideableEntity>();
+    public List<Entity> entities;
+    public CollideableEntity[] collideables = new CollideableEntity[0];
 
     List<Entity> toRemove = new List<Entity>();
     List<Entity> toAdd = new List<Entity>();
@@ -36,15 +36,15 @@ public class Level
         private set => _playerTank = value;
     }
 
-    public void SetPlayerTank(Entity entity) {
-        playerTank = playerTank;
+    public void SetPlayerTank(Tank playerTank) {
+        this.playerTank = playerTank;
     }
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
         tiles = new int[width, height];
-        entities = new HashSet<Entity>();
+        entities = new List<Entity>();
     }
 
     public void DoUpdate(float delta) {
@@ -59,9 +59,14 @@ public class Level
     }
 
     private void SolveCollisions() {
-        foreach (CollideableEntity pushCandidate in collideables) {
+        //foreach (CollideableEntity pushCandidate in collideables) {
+        var x = collideables.Length;
+        for (int i = 0; i < x; i++) {
+            var pushCandidate = collideables[i];
             if (pushCandidate is IPushable) {
-                foreach (CollideableEntity collidant in collideables) {
+                //foreach (CollideableEntity collidant in collideables) {
+                    for (int j = 0; j < x; j++) {
+                    var collidant = collideables[j];
 
                     //CHECK
                     if (collidant == pushCandidate) continue;
@@ -72,12 +77,22 @@ public class Level
                         }
                     }
 
+                    
+                    float sqrR1 = pushCandidate.GetOuterRadius();
+
+                    float sqrR2 = collidant.GetOuterRadius();
+                    
+                    if (Vector2.Distance(collidant.position, pushCandidate.position) > sqrR1 + sqrR2) {
+                        continue;
+                    }
+                    
+
                     //PROCEED
                     var vec = Physics.GetSeparationVector(pushable, collidant);
                     pushable.position += vec;
                     
                     if (collidant is not IPushable)
-                        pushable.velocity += vec * 50f;
+                        pushable.velocity += vec * 1f;
                     else {
                         (collidant as IPushable).velocity -= vec * 10f;
                     }
@@ -96,28 +111,54 @@ public class Level
     }
 
     private void AddAddedEntities() {
+        int collideableCnt = 0;
         foreach (Entity entity in toAdd) {
-            if (entities.Add(entity)) {
-                entity.OnDeathEvent += RemoveEntity;
-                OnEntityAddedEvent(entity);
+            entities.Add(entity);
+            entity.OnDeathEvent += RemoveEntity;
+            OnEntityAddedEvent(entity);
 
-                if (entity is CollideableEntity) {
-                    collideables.Add(entity as CollideableEntity);
-                }
-
+            if (entity is CollideableEntity) {
+                collideableCnt++;
             }
+        }
+
+        int c = 0;
+        if (collideableCnt != 0) {
+            CollideableEntity[] newArr = new CollideableEntity[collideables.Length + collideableCnt];
+            for (int i = 0; i < collideables.Length; i++) {
+                newArr[i] = collideables[i];
+            }
+            foreach (Entity entity in toAdd) {
+                if (entity is CollideableEntity)
+                    newArr[collideables.Length + c++] = entity as CollideableEntity;
+            }
+            collideables = newArr;
         }
         toAdd.Clear();
     }
 
     private void RemoveRemovedEntities() {
+
+        int collideableCnt = 0;
         foreach (Entity entity in toRemove) {
             entities.Remove(entity);
 
             if (entity is CollideableEntity) {
-                collideables.Remove(entity as CollideableEntity);
+                collideableCnt++;
             }
         }
+
+        int c = 0;
+        if (collideableCnt != 0) {
+            CollideableEntity[] newArr = new CollideableEntity[collideables.Length - collideableCnt];
+            foreach (CollideableEntity entity in collideables) {
+                if (!toRemove.Contains(entity)) {
+                    newArr[c++] = entity;
+                }
+            }
+            collideables = newArr;
+        }
+
         toRemove.Clear();
 
         if (CheckLevelEnded()) {

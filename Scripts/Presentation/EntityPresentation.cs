@@ -19,6 +19,10 @@ public abstract class EntityPresentation : MonoBehaviour
         transform.position = target.position;
     }
 
+    protected virtual void Update() {
+        transform.position = target.position;
+    }
+
     public virtual void Dispose(Entity ent) {
         gameObject.SetActive(false);
         target.OnDeathEvent -= Dispose;

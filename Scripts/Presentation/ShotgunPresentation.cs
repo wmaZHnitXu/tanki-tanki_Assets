@@ -12,7 +12,7 @@ public class ShotgunPresentation : EntityPresentation
         shotgun = target as ShotgunTurret;
     }
 
-    void Update() {
+    protected override void Update() {
         turret.localRotation = Quaternion.Euler(0,0, shotgun.yaw);
         transform.position = shotgun.position;
     }

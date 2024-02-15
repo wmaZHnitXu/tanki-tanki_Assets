@@ -13,7 +13,7 @@ public class TankPresentation : DestructiblePresentation
         tank = target as Tank;
     }
 
-    void Update()
+    protected override void Update()
     {
         transform.position = tank.position;
         body.localRotation = Quaternion.Euler(0,0, tank.rotation);

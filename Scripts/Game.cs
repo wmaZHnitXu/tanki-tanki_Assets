@@ -44,7 +44,6 @@ public class Game : MonoBehaviour
                 Debug.DrawLine(v1, v2, Color.red, 1.0f, true);
             }
         }
-        //Debug.Log(level.entities.Count);
     }
 
     public void SelectLevel(int levelNum) {
@@ -58,13 +57,16 @@ public class Game : MonoBehaviour
     public void ExitLevel() {
         level.Destroy();
         level = null;
+        playerTank = null;
     }
 
     public void LoadLevel(int levelNum, out Tank plrtnk) {
         level = new Level(32, 32);
-        OnLevelLoadEvent?.Invoke(level);
 
         plrtnk = new Tank(level, new TankInfo(), controller);
+        level.SetPlayerTank(plrtnk);
+
+        OnLevelLoadEvent?.Invoke(level);
 
         new Tile(level, new Vector2(2f, 2f));
         new Tile(level, new Vector2(1f, 1f));

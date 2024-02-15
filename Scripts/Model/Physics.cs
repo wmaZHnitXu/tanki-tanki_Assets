@@ -72,7 +72,7 @@ public class Physics
         return bestVector;
     }
 
-    public static Entity TraceLine(HashSet<CollideableEntity> collideables, Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos) {
+    public static Entity TraceLine(CollideableEntity[] collideables, Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos) {
         float k;
         float b;
         float d = Vector2.Distance(from, to);

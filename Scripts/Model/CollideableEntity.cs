@@ -13,4 +13,6 @@ public abstract class CollideableEntity : Entity
         get => _colliders;
         protected set => _colliders = value;
     }
+
+    public abstract float GetOuterRadius();
 }

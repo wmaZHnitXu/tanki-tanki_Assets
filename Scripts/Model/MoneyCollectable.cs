@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoneyCollectable : CollectableEntity
 {
     
-    private int nominal;    
+    public int nominal; 
     
     public MoneyCollectable(Level level, int nominal, Vector2 position, Vector2 velocity) : base(level, position, velocity) {
         this.nominal = nominal;
@@ -13,6 +13,6 @@ public class MoneyCollectable : CollectableEntity
 
     protected override void Collect()
     {
-        throw new System.NotImplementedException();
+        Kill();
     }
 }

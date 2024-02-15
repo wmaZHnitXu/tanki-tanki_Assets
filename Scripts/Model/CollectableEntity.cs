@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class CollectableEntity : CollideableEntity, IPushable
+public abstract class CollectableEntity : Entity
 {
     protected Vector2 _velocity;
     public Vector2 velocity { get => _velocity; set => _velocity = value; }
 
-    protected bool isFollowing;
+    public bool isFollowing;
     protected float followingDistance;
     protected float collectDistance;
     protected float followSpeed;
@@ -20,21 +20,24 @@ public abstract class CollectableEntity : CollideableEntity, IPushable
 
     public override void Update(float delta)
     {
-        position += velocity;
-        velocity *= 0.01f;
 
         var plr = level.playerTank;
         if (plr == null) return;
+        //Debug.Log("followa");
         
         float distance = Vector2.Distance(plr.position, position);
-        if (distance < followingDistance) {
+        if (distance < followingDistance && !isFollowing) {
             isFollowing = true;
         }
 
         if (isFollowing) {
-            velocity = (plr.position - position) * followSpeed;
+            velocity = ((plr.position - position) * followSpeed * delta / (distance * distance));
+            position += velocity * delta;
             if (distance < collectDistance) {
                 Collect();
+            }
+            if (distance > followingDistance) {
+                isFollowing = false;
             }
         }
     }
@@ -48,7 +51,7 @@ public abstract class CollectableEntity : CollideableEntity, IPushable
         this.velocity = velocity;
 
         this.collectDistance = 0.1f;
-        this.followingDistance = 1.0f;
-        this.followSpeed = 0.05f;
+        this.followingDistance = 2.0f;
+        this.followSpeed = 6000f;
     }
 }
