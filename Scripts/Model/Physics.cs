@@ -87,6 +87,11 @@ public class Physics
 
             if (canGoThrough(entity)) continue;
 
+            var pos = entity.position;
+            var outerRadius = entity.GetOuterRadius();
+            if (Vector2.Distance(pos, to) > d + outerRadius 
+            || Vector2.Distance(pos, from) > d + outerRadius) continue;
+
             foreach(Collider col in entity.colliders)
             {
                 if (col is CircleCollider)

@@ -22,12 +22,6 @@ public class Tile : DestructibleEntity
             
             new MoneyCollectable(level, Random.Range(0, 11), randomisedPos, Vector2.zero);
         }
-
-        foreach (Entity entity in level.entities) {
-            if (entity is Tank) {
-                (entity as Tank).Damage(Random.Range(10f, 15f));
-            }
-        }
     }
 
     public override bool MustBeDestroyedForLevelToEnd()
