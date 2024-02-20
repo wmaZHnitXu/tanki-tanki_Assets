@@ -2613,6 +2613,15 @@ MonoBehaviour:
   - typeName: ShilkaTurret
     prefab: {fileID: 3388468004722406945, guid: c1f97cf15394afd4ca5e0f16f2b780ff, type: 3}
     factory: {fileID: 1787980185}
+  - typeName: ShotgunTurret
+    prefab: {fileID: 3388468004722406945, guid: 05cd6459f2da27b40a5c2b71286fbd13, type: 3}
+    factory: {fileID: 1787980185}
+  - typeName: RicochetTurret
+    prefab: {fileID: 3388468004722406945, guid: eafe3ef3c9d2d87489f88da37ef437f9, type: 3}
+    factory: {fileID: 1787980185}
+  - typeName: RicochetBullet
+    prefab: {fileID: 2325940317232813207, guid: a81e2969764609f4081897dbb61d4659, type: 3}
+    factory: {fileID: 1787980185}
 --- !u!4 &1787980187
 Transform:
   m_ObjectHideFlags: 0

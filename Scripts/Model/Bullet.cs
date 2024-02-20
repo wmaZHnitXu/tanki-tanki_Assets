@@ -20,7 +20,6 @@ public class Bullet : Entity
         bool hitFlag = false;
         Entity e = null;
         if ((e = level.TraceLine(owner, position, nextPos, out nextPos)) != null) {
-
             if (e is DestructibleEntity) {
                 var d = e as DestructibleEntity;
                 d.Damage(damage, nextPos);
