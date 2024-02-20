@@ -40,7 +40,9 @@ public abstract class Turret : AttachedEntity
             case TurretType.shilka:
                 return new ShilkaTurret(level, owner, info);
             case TurretType.shotgun:
-                return new ShotgunTurret(level, owner, info);
+                return new ShotgunTurret(owner, info);
+            case TurretType.ricochet:
+                return new RicochetTurret(owner, info);
             default:
                 throw new NotImplementedException();
         }

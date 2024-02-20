@@ -18,6 +18,7 @@ public class Bullet : Entity
     {
         Vector2 nextPos = position + velocity * delta;
         Entity e = null;
+
         if ((e = level.TraceLine(CanGoThrough, position, nextPos, out nextPos)) != null) {
 
             if (e is DestructibleEntity) {

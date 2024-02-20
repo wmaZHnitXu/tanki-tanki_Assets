@@ -17,6 +17,7 @@ public class ShotgunTurret : Turret
         if (shootCd <= 0f && isFiring)
         {
             float cannonLength = 1.0f;
+
             float bulletSpeed = 20.0f;
 
             float angle = 10.0f;
