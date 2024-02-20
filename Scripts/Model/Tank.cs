@@ -77,6 +77,6 @@ public class Tank : DestructibleEntity, IPushable
     }
 
     public override float GetOuterRadius() {
-        return 1.4142f;
+        return 1.4142f; //sqrt(2)
     }
 }

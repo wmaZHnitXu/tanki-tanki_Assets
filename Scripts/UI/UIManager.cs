@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
         Greeting,
         Garage,
         LvlSelect,
-        OnLevel
+        OnLevel,
+        LevelEnd
     }
 
     public enum SmallOverlayType : int {

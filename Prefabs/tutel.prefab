@@ -48,7 +48,6 @@ MonoBehaviour:
   prefab: {fileID: 0}
   camSpeed: 0
   camTrans: {fileID: 0}
-  turret: {fileID: 0}
   body: {fileID: 8459950502518760510}
 --- !u!1 &8459950502518760507
 GameObject:

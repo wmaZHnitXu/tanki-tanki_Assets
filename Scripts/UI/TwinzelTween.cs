@@ -49,6 +49,8 @@ public class TwinzelTween : MonoBehaviour
         InvertQuad
     }
 
+    public List<TwinzelTween> children = new List<TwinzelTween>();
+
     public delegate float EasingFunc(float x);
 
     public EasingFunc GetEasingFunc(EasingFuncType type) {
@@ -71,7 +73,16 @@ public class TwinzelTween : MonoBehaviour
         return -((x-1) * (x-1)) + 1;
     }
 
-    [SerializeField] private List<TwinzelTween> childrenTweeners = new List<TwinzelTween>();
+    [SerializeField] private List<TwinzelTween> childTweeners = new List<TwinzelTween>();
+    [ContextMenu("Add tweeners from children gameobjects")]
+    public void AddTweenersFromChildren() {
+        childTweeners = new List<TwinzelTween>();
+
+        foreach (TwinzelTween twin in transform.GetComponentsInChildren<TwinzelTween>(true)) {
+            if (twin == this) continue;
+            childTweeners.Add(twin);
+        }
+    }
 
     void Start() {
         
@@ -117,10 +128,16 @@ public class TwinzelTween : MonoBehaviour
 
     public void Appear() {
         PlayAnimation(appearAnim);
+        foreach (TwinzelTween twin in children) {
+            twin.Appear();
+        }
     }
 
     public void Disappear() {
         PlayAnimation(disappearAnim);
+        foreach (TwinzelTween twin in children) {
+            twin.Disappear();
+        }
     }
 
     void Update() {
