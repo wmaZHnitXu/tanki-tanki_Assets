@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class BulletPresentation : EntityPresentation
 {
-
-    void Update() {
-        transform.position = target.position;
-    }
     
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TankPresentation : EntityPresentation
+public class TankPresentation : DestructiblePresentation
 {
     [SerializeField] float camSpeed;
     [SerializeField] Transform camTrans;
@@ -13,7 +13,7 @@ public class TankPresentation : EntityPresentation
         tank = target as Tank;
     }
 
-    void Update()
+    protected override void Update()
     {
         transform.position = tank.position;
         body.localRotation = Quaternion.Euler(0,0, tank.rotation);

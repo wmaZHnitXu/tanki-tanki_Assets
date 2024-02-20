@@ -18,11 +18,9 @@ public class Tank : DestructibleEntity, IPushable
         set => _velocity = value;
     }
     private IController controller;
-    private float shootCd;
     private float lookAngle;
-    private float maxShootCd = 0.02f;
     private int team;
-    public override void Update(Level level, float delta) {
+    public override void Update(float delta) {
 
         velocity -= velocity * 5.0f * Time.deltaTime;
         if (controller != null) {
@@ -35,7 +33,7 @@ public class Tank : DestructibleEntity, IPushable
             rotation = MathUtil.GetAngleFromVec(velocity);
 
         if (controller != null) {
-            lookAngle = controller.GetLookAngle();
+            lookAngle = controller.GetLookAngle(position);
         }
 
         //TURRET
@@ -45,24 +43,40 @@ public class Tank : DestructibleEntity, IPushable
         }
     }
 
-    public Tank(TankInfo info, IController controller, Level level) {
+    public Tank(Level level, TankInfo info, IController controller) : base(level) {
         this.colliders = new List<Collider> {
             new CircleCollider(this, 0.5f),
             new RectCollider(this, 1.0f, 1.0f, true)
         };
 
-        var turret = new RicochetTurret(this, info);
-        level.AddEntity(turret);
-        
+        var turret = Turret.Create(level, this, info);        
 
         this.turret = turret;
         this.controller = controller;
-        this.health = 100.0f;
+        this.maxHealth = 100.0f;
+        this.health = this.maxHealth;
         this.acceleration = 50.0f;
         this.speed = 10f;
+
+        this.team = (controller is PlayerController) ? 0 : 1;
     }
 
     public void AddVelocity(Vector2 velocity) {
         this.velocity += velocity;
+    }
+
+    public override bool MustBeDestroyedForLevelToEnd()
+    {
+        return !(controller is PlayerController);
+    }
+
+    public bool CanPush(IPushable pushable)
+    {
+        if (pushable is CollectableEntity) return false;
+        return true;
+    }
+
+    public override float GetOuterRadius() {
+        return 1.4142f;
     }
 }

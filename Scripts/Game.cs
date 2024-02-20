@@ -16,8 +16,11 @@ public class Game : MonoBehaviour
     void Start()
     {
         instance = this;
+        //Application.targetFrameRate = 60;
         FindObjectOfType<PresentationManager>().Initialize();
         FindObjectOfType<UIManager>().Initialize();
+        FindObjectOfType<HealthBarsController>().Initialize();
+        FindObjectOfType<ParticleSystems>().Initialize();
         controller = GetComponent<PlayerControllerPC>();
 
         UIManager.instance.activeOverlay = UIManager.MainOverlayType.Greeting;
@@ -41,7 +44,6 @@ public class Game : MonoBehaviour
                 Debug.DrawLine(v1, v2, Color.red, 1.0f, true);
             }
         }
-        //Debug.Log(level.entities.Count);
     }
 
     public void SelectLevel(int levelNum) {
@@ -55,23 +57,29 @@ public class Game : MonoBehaviour
     public void ExitLevel() {
         level.Destroy();
         level = null;
+        playerTank = null;
     }
 
     public void LoadLevel(int levelNum, out Tank plrtnk) {
         level = new Level(32, 32);
+
+        plrtnk = new Tank(level, new TankInfo(), controller);
+        level.SetPlayerTank(plrtnk);
+
         OnLevelLoadEvent?.Invoke(level);
 
-        plrtnk = new Tank(new TankInfo(), controller, level);
-        level.AddEntity(playerTank);
-
-        level.AddEntity(new Tile(new Vector2(2f, 2f)));
-        level.AddEntity(new Tile(new Vector2(1f, 1f)));
-        level.AddEntity(new Tile(new Vector2(1f, 2f)));
-        level.AddEntity(new Tile(new Vector2(1f, 3f)));
-        level.AddEntity(new Tile(new Vector2(1f, 5f)));
-        level.AddEntity(new Tile(new Vector2(1f, 6f)));
-
-        var tank = new Tank(new TankInfo(), null, level);
-        level.AddEntity(tank);
+        new Tile(level, new Vector2(2f, 2f));
+        new Tile(level, new Vector2(1f, 1f));
+        new Tile(level, new Vector2(1f, 2f));
+        new Tile(level, new Vector2(1f, 3f));
+        new Tile(level, new Vector2(1f, 5f));
+        new Tile(level, new Vector2(1f, 6f));
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                new Tile(level, new Vector2(i - 15, j));
+            }
+        }
+        
+        var tank = new Tank(level, new TankInfo(), null);
     }
 }

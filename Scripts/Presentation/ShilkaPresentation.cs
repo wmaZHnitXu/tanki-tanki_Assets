@@ -12,7 +12,7 @@ public class ShilkaPresentation : EntityPresentation
         shilka = target as ShilkaTurret;
     }
 
-    void Update() {
+    protected override void Update() {
         turret.localRotation = Quaternion.Euler(0,0, shilka.yaw);
         transform.position = shilka.position;
     }
