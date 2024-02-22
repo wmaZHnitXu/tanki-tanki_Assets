@@ -173,16 +173,18 @@ public class Physics
         hitPos = to;
         normal = Vector2.zero;
 
-        foreach (CollideableEntity entity in collideables) {
+        foreach (CollideableEntity entity in collideables)
+        {
+
 
             if (canGoThrough(entity)) continue;
 
             var pos = entity.position;
             var outerRadius = entity.GetOuterRadius();
-            if (Vector2.Distance(pos, to) > d + outerRadius 
+            if (Vector2.Distance(pos, to) > d + outerRadius
             || Vector2.Distance(pos, from) > d + outerRadius) continue;
 
-            foreach(Collider col in entity.colliders)
+            foreach (Collider col in entity.colliders)
             {
                 if (col is CircleCollider)
                 {
@@ -199,17 +201,20 @@ public class Physics
                     float d1 = Vector2.Distance(from, v1);
                     float d2 = Vector2.Distance(from, v2);
 
-                    if (d >= d1 || d >= d2) {
+                    if (d >= d1 || d >= d2)
+                    {
                         //Debug.Log(true);
-                        result = entity;    
+                        result = entity;
                         hitPos = d1 < d2 ? v1 : v2;
                         normal = col.GetNormal(hitPos);
                         d = d1 < d2 ? d1 : d2;
                     }
                 }
-                else if (col is RectCollider) {
+                else if (col is RectCollider)
+                {
                     var rect = col as RectCollider;
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 4; i++)
+                    {
                         var side = (RectCollider.Side)i;
 
                         var tuple = rect.GetSideLine(side);
@@ -220,12 +225,17 @@ public class Physics
                         float k1, b1;
                         MathUtil.GetCoefficientsForLine(lineStart, lineEnd, out k1, out b1);
                         Vector2 sideIntersection;
-                        if (lineStart.x == lineEnd.x) {
+
+                        if (lineStart.x == lineEnd.x)
+                        {
+
                             float x = lineStart.x;
                             float y = k * x + b;
                             sideIntersection = new Vector2(x, y);
                         }
-                        else {
+
+                        else
+                        {
                             sideIntersection = MathUtil.GetLineIntersection(k, b, k1, b1);
                         }
 
@@ -239,8 +249,9 @@ public class Physics
                         d2 = Vector2.Distance(lineStart, sideIntersection);
                         d3 = Vector2.Distance(lineEnd, sideIntersection);
 
-                        if ((d0 < len1 && d1 < len1) && (d2 < len2 && d3 < len2) && d0 < d) {
-                            result = entity;    
+                        if ((d0 < len1 && d1 < len1) && (d2 < len2 && d3 < len2) && d0 < d)
+                        {
+                            result = entity;
                             hitPos = sideIntersection;
                             normal = col.GetNormal(hitPos);
                             d = d0;
