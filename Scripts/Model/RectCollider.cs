@@ -10,7 +10,7 @@ public class RectCollider : Collider
         left,
         bottom
     }
-    public float angle {
+    public override float rotation {
         get => owner.rotation;
     }
     private float _width;
@@ -72,29 +72,17 @@ public class RectCollider : Collider
                 break;
         }
 
-        if (angle == 0.0f) {
-            return new Tuple<Vector2, Vector2>(from, to);
+        if (rotation == 0.0f) {
+            return new Tuple<Vector2, Vector2>(from + position, to + position);
         }
 
-        float fromLen = from.magnitude;
-        float fromAngle = Mathf.Atan2(from.x, from.y);
-
-        float toLen = to.magnitude;
-        to = to.normalized;
-        float toAngle = Mathf.Atan2(to.x, to.y);
-
-        float radAngle = angle * Mathf.Deg2Rad;
-
-        float xFrom = Mathf.Cos(fromAngle + radAngle);
-        float yFrom = Mathf.Sin(fromAngle + radAngle);
-
-        from = new Vector2(xFrom, yFrom) * fromLen + position;
-        
-        float xTo = Mathf.Cos(toAngle + radAngle);
-        float yTo = Mathf.Sin(toAngle + radAngle);
-
-        to = new Vector2(xTo, yTo) * toLen + position;
-
+        from = MathUtil.LocalToGlobalCoords(from, this);
+        to = MathUtil.LocalToGlobalCoords(to, this);
         return new Tuple<Vector2, Vector2>(from, to);
+    }
+
+    public override Vector2 GetNormal(Vector2 point)
+    {
+        throw new NotImplementedException();
     }
 }

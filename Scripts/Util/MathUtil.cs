@@ -67,4 +67,20 @@ public class MathUtil
     public static Vector2 GetVectorOfPolar(float angle, float length) {
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * length;
     }
+
+    public static Vector2 GlobalToLocalCoords(Vector2 vector, IPosAndRot inIts) {
+        var polar = GetPolarOfVector(vector - inIts.position);
+        float newAngle = polar.Item1 - inIts.rotation * Mathf.Deg2Rad;
+        float len = polar.Item2;
+
+        return GetVectorOfPolar(newAngle, len);
+    }
+
+    public static Vector2 LocalToGlobalCoords(Vector2 vector, IPosAndRot inIts) {
+        var polar = GetPolarOfVector(vector);
+        float newAngle = polar.Item1 + inIts.rotation * Mathf.Deg2Rad;
+        float len = polar.Item2;
+
+        return inIts.position + GetVectorOfPolar(newAngle, len);
+    }
 }

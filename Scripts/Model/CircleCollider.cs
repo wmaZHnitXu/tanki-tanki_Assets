@@ -17,4 +17,9 @@ public class CircleCollider : Collider
     {
         return radius - Vector2.Distance(point, owner.position);
     }
+
+    public override Vector2 GetNormal(Vector2 point)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Entity
+public abstract class Entity : IPosAndRot
 {
     private Vector2 _position;
     public virtual Vector2 position {
