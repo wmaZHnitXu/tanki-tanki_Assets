@@ -15,4 +15,6 @@ public abstract class Collider
         }
     }
     public abstract float GetPointDepth(Vector2 point);
+
+    public abstract Vector2 GetNormal(Vector2 point);
 }

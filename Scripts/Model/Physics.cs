@@ -156,9 +156,12 @@ public class Physics
                     }
                 }
             }
-          
         }
 
         return result;
+    }
+
+    public static Entity TraceLine(CollideableEntity[] collideables, Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos, out Vector2 normal) {
+        
     }
 }

@@ -110,6 +110,10 @@ public class Level
         return Physics.TraceLine(collideables, canGoThrough, from, to, out hitPos);
     }
 
+    public Entity TraceLine(Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos, out Vector2 normal) {
+        return Physics.TraceLine(collideables, canGoThrough, from, to, out hitPos, out normal);
+    }
+
     private void AddAddedEntities() {
         int collideableCnt = 0;
         foreach (Entity entity in toAdd) {

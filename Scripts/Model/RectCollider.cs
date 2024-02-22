@@ -72,8 +72,11 @@ public class RectCollider : Collider
                 break;
         }
 
+        if (angle == 0.0f) {
+            return new Tuple<Vector2, Vector2>(from, to);
+        }
+
         float fromLen = from.magnitude;
-        from = from.normalized;
         float fromAngle = Mathf.Atan2(from.x, from.y);
 
         float toLen = to.magnitude;
