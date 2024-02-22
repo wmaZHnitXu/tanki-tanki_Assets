@@ -20,6 +20,7 @@ public class CircleCollider : Collider
 
     public override Vector2 GetNormal(Vector2 point)
     {
-        throw new System.NotImplementedException();
+        return owner.position.normalized;
+
     }
 }

@@ -19,19 +19,11 @@ public class RicochetBullet : Entity
     public override void Update(float delta)
     {
         Vector2 nextPos = position + velocity * delta;
+        Vector2 normal = Vector2.zero;
         Entity e = null;
-        if ((e = level.TraceLine(CanGoThrough, position, nextPos, out nextPos)) != null) {
-            Debug.Log(nextPos);
-            Vector2 reflectDir2D = nextPos.normalized;
-            Debug.Log(reflectDir2D);
-            float rot = 90 - Mathf.Atan2(reflectDir2D.y, reflectDir2D.x) * Mathf.Rad2Deg;
-            velocity = Vector2.Reflect(velocity, new Vector2(1, 0));
-
-            /*
-            Vector2 reflectDir = Vector2.Reflect(position, nextPos.normalized);
-            float rot = 90 - Mathf.Atan2(reflectDir.x, reflectDir.y) * Mathf.Rad2Deg;
-            position = new Vector2(0, rot);
-            lifetime += delta;*/
+        if ((e = level.TraceLine(CanGoThrough, position, nextPos, out nextPos, out normal)) != null) {
+            velocity = Vector2.Reflect(velocity, normal);
+            lifetime += delta;
         }
 
         else
