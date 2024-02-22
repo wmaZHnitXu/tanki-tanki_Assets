@@ -14,10 +14,11 @@ public class TwinzelTween : MonoBehaviour
         Disappear
     }
     [SerializeField] private PreviewType previewState;
+    [SerializeField] private bool notSupposedToHaveImageComponent;
 
 
-    private Vector3 originalPosition;
-    private Vector3 originalScale;
+    [SerializeField] private Vector3 originalPosition;
+    [SerializeField] private Vector3 originalScale;
     public AnimationTW appearAnim;
     public AnimationTW disappearAnim;
     public bool transformAllOfTheChildren;
@@ -25,6 +26,7 @@ public class TwinzelTween : MonoBehaviour
     private float duration;
     private bool inPlay;
     [SerializeField] private float timestamp;
+    [SerializeField] private bool playAtStart;
     private float startTime;
     [SerializeField] private Image myImageComponent;
 
@@ -46,7 +48,8 @@ public class TwinzelTween : MonoBehaviour
     public enum EasingFuncType {
         Linear,
         Quad,
-        InvertQuad
+        InvertQuad,
+        InvertCube
     }
 
     public List<TwinzelTween> children = new List<TwinzelTween>();
@@ -57,6 +60,7 @@ public class TwinzelTween : MonoBehaviour
         switch(type) {
             case EasingFuncType.Quad: return easingQuad;
             case EasingFuncType.InvertQuad: return easingInvertQuad;
+            case EasingFuncType.InvertCube: return easingInvertCube;
             default: return easingFuncLinear;
         }
     }
@@ -73,6 +77,10 @@ public class TwinzelTween : MonoBehaviour
         return -((x-1) * (x-1)) + 1;
     }
 
+    private float easingInvertCube(float x) {
+        return -Math.Abs((x-1) * (x-1) * (x-1)) + 1;
+    }
+
     [SerializeField] private List<TwinzelTween> childTweeners = new List<TwinzelTween>();
     [ContextMenu("Add tweeners from children gameobjects")]
     public void AddTweenersFromChildren() {
@@ -85,13 +93,15 @@ public class TwinzelTween : MonoBehaviour
     }
 
     void Start() {
-        
+        if (playAtStart) {
+            PlayAnimation(appearAnim);
+        }
     }
 
     public void SetPosition(float x, AnimationTW anim) {
         Vector3 pos = InterpVector(anim.startPos, anim.endPos, x);
         pos = new Vector3(pos.x * Screen.width, pos.y * Screen.height, pos.z);
-        transform.position = originalPosition + pos;
+        transform.localPosition = originalPosition + pos;
     }
 
     public void SetColor(float x, AnimationTW anim) {
@@ -103,6 +113,7 @@ public class TwinzelTween : MonoBehaviour
 
     public void SetScale(float x, AnimationTW anim) {
         float scaleFactor = InterpFloat(anim.startScale, anim.endScale, x);
+        Debug.Log(originalScale * scaleFactor + " " + scaleFactor + " " + originalScale);
         transform.localScale = originalScale * scaleFactor;
     }
 
@@ -174,14 +185,21 @@ public class TwinzelTween : MonoBehaviour
         return a + value * (b - a);
     }
 
-    void OnValidate() {
+    [ContextMenu("Validate")]
+    void Val() {
+        myImageComponent = GetComponent<Image>();
+        originalPosition = transform.localPosition;
+        originalScale = transform.localScale;
+    }
 
-        if (myImageComponent == null && previewState == PreviewType.None) {
-            myImageComponent = GetComponent<Image>();
-            originalPosition = transform.position;
-            originalScale = transform.localScale;
-        }
-        else {
+    PreviewType prevAnimationForTimestampReset;
+    void OnValidate() {
+        if (prevAnimationForTimestampReset != previewState) {
+            preview = 0f;
+            prevAnimationForTimestampReset = previewState;
+        } 
+        
+        if (myImageComponent != null || notSupposedToHaveImageComponent) {
             if (previewState == PreviewType.Appear) {
                 currentAnimation = appearAnim;
                 duration = 1.0f;
@@ -192,8 +210,6 @@ public class TwinzelTween : MonoBehaviour
                 duration = 1.0f;
                 SetAnimTimestamp(preview);
             }
-            
         }
     }
-
 }

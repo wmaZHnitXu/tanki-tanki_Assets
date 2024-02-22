@@ -1056,7 +1056,7 @@ RectTransform:
   m_GameObject: {fileID: 445579401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1210683026}
@@ -1065,7 +1065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 101}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 349, y: 95.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445579403
@@ -1081,7 +1081,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: 0
-  previewState: 0
+  previewState: 2
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0, y: 0, z: 0}
   appearAnim:
     startPos: {x: 0, y: 1, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -1102,12 +1105,13 @@ MonoBehaviour:
     startColor: {r: 1, g: 1, b: 1, a: 1}
     endColor: {r: 1, g: 1, b: 1, a: 1}
     defaultDuration: 0.2
-    easing: 2
+    easing: 1
     coolEffect1: 0
     coolEffect2: 0
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 445579404}
   children: []
   childTweeners: []
@@ -6445,7 +6449,7 @@ RectTransform:
   m_GameObject: {fileID: 977817109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1308616112}
@@ -6469,7 +6473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: 0
-  previewState: 0
+  previewState: 2
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0, y: 0, z: 0}
   appearAnim:
     startPos: {x: 0, y: 0, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -6496,6 +6503,7 @@ MonoBehaviour:
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 977817112}
   children: []
   childTweeners: []
@@ -6554,7 +6562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1018464100
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6592,6 +6600,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preview: 0
   previewState: 0
+  notSupposedToHaveImageComponent: 1
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 1, y: 1, z: 1}
   appearAnim:
     startPos: {x: -1, y: 0, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -6618,6 +6629,7 @@ MonoBehaviour:
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 0}
   children: []
   childTweeners: []
@@ -7387,7 +7399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1308616110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7413,8 +7425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9d331dfce418644894c464590d3cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preview: 1
+  preview: 0
   previewState: 0
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0, y: 0, z: 0}
   appearAnim:
     startPos: {x: 0, y: 0, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -7441,9 +7456,13 @@ MonoBehaviour:
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 0}
   children: []
-  childTweeners: []
+  childTweeners:
+  - {fileID: 977817111}
+  - {fileID: 445579403}
+  - {fileID: 2051657468}
 --- !u!224 &1308616112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7656,6 +7675,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preview: 0
   previewState: 0
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 1, y: 1, z: 1}
   appearAnim:
     startPos: {x: 1, y: 0, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -7682,6 +7704,7 @@ MonoBehaviour:
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 0}
   children: []
   childTweeners: []
@@ -8256,6 +8279,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preview: 0
   previewState: 0
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 1, y: 1, z: 1}
   appearAnim:
     startPos: {x: 1, y: 0, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -8282,6 +8308,7 @@ MonoBehaviour:
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 0}
   children: []
   childTweeners: []
@@ -8429,6 +8456,7 @@ MonoBehaviour:
     factory: {fileID: 1787980185}
   - typeName: RicochetBullet
     prefab: {fileID: 2325940317232813207, guid: a81e2969764609f4081897dbb61d4659, type: 3}
+    factory: {fileID: 1787980185}
   - typeName: MoneyCollectable
     prefab: {fileID: 5105145620974071242, guid: dcd04d9728e9a3a49855ab60de644b6d, type: 3}
     factory: {fileID: 1787980185}
@@ -8783,6 +8811,7 @@ GameObject:
   - component: {fileID: 2051657465}
   - component: {fileID: 2051657467}
   - component: {fileID: 2051657466}
+  - component: {fileID: 2051657468}
   m_Layer: 5
   m_Name: Profit
   m_TagString: Untagged
@@ -8799,7 +8828,7 @@ RectTransform:
   m_GameObject: {fileID: 2051657464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 15991416}
@@ -8809,7 +8838,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -31.785896}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 349, y: 130.2518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2051657466
@@ -8850,6 +8879,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051657464}
   m_CullTransparentMesh: 1
+--- !u!114 &2051657468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051657464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9d331dfce418644894c464590d3cc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preview: 0
+  previewState: 2
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0, y: 0, z: 0}
+  appearAnim:
+    startPos: {x: 2, y: 0, z: 0}
+    endPos: {x: 0, y: 0, z: 0}
+    startScale: 1
+    endScale: 1
+    startColor: {r: 1, g: 1, b: 1, a: 1}
+    endColor: {r: 1, g: 1, b: 1, a: 1}
+    defaultDuration: 0.2
+    easing: 2
+    coolEffect1: 0
+    coolEffect2: 0
+    coolEffect3: 0
+  disappearAnim:
+    startPos: {x: 0, y: 0, z: 0}
+    endPos: {x: -2, y: 0, z: 0}
+    startScale: 1
+    endScale: 1
+    startColor: {r: 1, g: 1, b: 1, a: 1}
+    endColor: {r: 1, g: 1, b: 1, a: 1}
+    defaultDuration: 0.2
+    easing: 1
+    coolEffect1: 0
+    coolEffect2: 0
+    coolEffect3: 0
+  transformAllOfTheChildren: 0
+  timestamp: 0
+  playAtStart: 0
+  myImageComponent: {fileID: 2051657466}
+  children: []
+  childTweeners: []
 --- !u!1 &2065031344
 GameObject:
   m_ObjectHideFlags: 0
@@ -8904,6 +8980,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preview: 0
   previewState: 0
+  notSupposedToHaveImageComponent: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalScale: {x: 1, y: 1, z: 1}
   appearAnim:
     startPos: {x: -1, y: 0, z: 0}
     endPos: {x: 0, y: 0, z: 0}
@@ -8930,6 +9009,7 @@ MonoBehaviour:
     coolEffect3: 0
   transformAllOfTheChildren: 0
   timestamp: 0
+  playAtStart: 0
   myImageComponent: {fileID: 0}
   children: []
   childTweeners: []

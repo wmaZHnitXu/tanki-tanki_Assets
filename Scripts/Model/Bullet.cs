@@ -39,7 +39,6 @@ public class Bullet : Entity
 
     private bool CanGoThrough(CollideableEntity entity) {
         if (entity == owner) return true;
-        if (entity is CollectableEntity) return true;
         return false;
     }
 }

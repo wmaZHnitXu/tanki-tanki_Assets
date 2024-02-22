@@ -34,15 +34,15 @@ public abstract class Turret : AttachedEntity
     }
 
     public static Turret Create(Level level, Tank owner, TankInfo info) {
-        if (false)
-        return new ShotgunTurret(level, owner, info);
+        //if (false)
+        //return new ShotgunTurret(level, owner, info);
         switch (info.turretType) {
             case TurretType.shilka:
                 return new ShilkaTurret(level, owner, info);
             case TurretType.shotgun:
-                return new ShotgunTurret(owner, info);
+                return new ShotgunTurret(level, owner, info);
             case TurretType.ricochet:
-                return new RicochetTurret(owner, info);
+                return new RicochetTurret(level, owner, info);
             default:
                 throw new NotImplementedException();
         }

@@ -7,11 +7,11 @@ public class RicochetTurret : Turret
     private float shootCd;
     private float maxShootCd = 0.5f;
 
-    public RicochetTurret(Tank owner, TankInfo info) : base(owner, info)
+    public RicochetTurret(Level level, Tank owner, TankInfo info) : base(level, owner, info)
     {
 
     }
-    public override void Update(Level level, float delta)
+    public override void Update(float delta)
     {
         shootCd -= delta;
         if (shootCd <= 0f && isFiring)
@@ -22,7 +22,7 @@ public class RicochetTurret : Turret
             float cannonLength = 1.0f;
             float bulletSpeed = 30.0f;
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
-            RicochetBullet bullet = new RicochetBullet(bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
+            RicochetBullet bullet = new RicochetBullet(level, bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
 
             level.AddEntity(bullet);
             shootCd = maxShootCd;

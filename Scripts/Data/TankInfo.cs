@@ -27,7 +27,7 @@ public class TankInfo
     public int hullLevel;
 
     public TankInfo() {
-        this.turretType = TurretType.shilka;
+        this.turretType = TurretType.ricochet;
         this.hullType = HullType.medium;
         this.turretLevel = 1;
         this.hullLevel = 1;
