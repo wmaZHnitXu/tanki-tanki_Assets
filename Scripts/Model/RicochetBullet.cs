@@ -8,7 +8,6 @@ public class RicochetBullet : Entity
     private float lifetime;
     private float maxLifetime = 20.0f;
     private Entity owner;
-    public Vector2 sex;
 
     public RicochetBullet(Level level, Vector2 position, Vector2 velocity, Entity owner) : base(level) {
         this.velocity = velocity;
@@ -29,9 +28,6 @@ public class RicochetBullet : Entity
             velocity = Vector2.Reflect(velocity, normal);
             
             lifetime += delta;
-            
-            Debug.Log(velocity.normalized * remainingDistance);
-            sex = velocity.normalized * remainingDistance;
             nextPos += velocity.normalized * remainingDistance;
         }
 
