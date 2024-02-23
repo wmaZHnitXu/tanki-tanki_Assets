@@ -43,11 +43,14 @@ public class Game : MonoBehaviour
                 var v1 = new Vector3(lineStart.x, lineStart.y, 0.1f);
                 var v2 = new Vector3(lineEnd.x, lineEnd.y, 0.1f);
 
-                var v21 = rect.position;
-                var v22 = rect.GetNormal(transform.position) + v21;
+                var first = transform.position;
+                var sec = PresentationManager.instance.transform.position;
+                Vector2 hitpos;
+                Vector2 normal;
+                level.TraceLine(x => false, (Vector2)first, (Vector2)sec, out hitpos);
 
-                Debug.DrawLine(v1, v2, Color.red, 1.0f, true);
-                Debug.DrawLine(v21, v22, Color.red, 0.05f, true);
+                Debug.DrawLine(v1, v2, Color.blue, 1.0f, true);
+                Debug.DrawLine(first, new Vector3(hitpos.x, hitpos.y, sec.z), Color.red, 0.05f, true);
             }
         }
     }
