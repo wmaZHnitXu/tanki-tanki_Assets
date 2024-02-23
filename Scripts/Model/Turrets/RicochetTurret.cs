@@ -24,7 +24,6 @@ public class RicochetTurret : Turret
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
             RicochetBullet bullet = new RicochetBullet(level, bulletOriginPos, new Vector2(x, y) * bulletSpeed, this);
 
-            level.AddEntity(bullet);
             shootCd = maxShootCd;
         }
     }

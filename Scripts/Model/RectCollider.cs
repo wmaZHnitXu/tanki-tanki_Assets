@@ -11,9 +11,7 @@ public class RectCollider : Collider
         left,
         bottom
     }
-    public float angle {
-        get => owner.rotation;
-    }
+    
     private float _width;
     private float _height;
     public float width
@@ -32,6 +30,8 @@ public class RectCollider : Collider
             _height = value;
         }
     }
+
+    public override float rotation => owner.rotation;
 
     public RectCollider(Entity owner, float width, float height) {
         this.owner = owner;
@@ -73,25 +73,8 @@ public class RectCollider : Collider
                 break;
         }
 
-     
-        float fromLen = from.magnitude;
-        float fromAngle = Mathf.Atan2(from.x, from.y);
-
-        float toLen = to.magnitude;
-        to = to.normalized;
-        float toAngle = Mathf.Atan2(to.x, to.y);
-
-        float radAngle = angle * Mathf.Deg2Rad;
-
-        float xFrom = Mathf.Cos(fromAngle + radAngle);
-        float yFrom = Mathf.Sin(fromAngle + radAngle);
-
-        from = new Vector2(xFrom, yFrom) * fromLen + position;
-        
-        float xTo = Mathf.Cos(toAngle + radAngle);
-        float yTo = Mathf.Sin(toAngle + radAngle);
-
-        to = new Vector2(xTo, yTo) * toLen + position;
+        from = MathUtil.LocalToGlobalCoords(from, this);
+        to = MathUtil.LocalToGlobalCoords(to, this);
 
         return new Tuple<Vector2, Vector2>(from, to);
     }
@@ -103,50 +86,50 @@ public class RectCollider : Collider
             throw new NotImplementedException();
         }
 
-        Vector2 p = MathUtil.GlobalToLocalCoords(point, this);
+        Vector2 p = point;
 
         var tuple1 = GetSideLine(Side.top);
         var tuple2 = GetSideLine(Side.bottom);
 
         Vector2 p1 = tuple1.Item1;
         Vector2 p2 = tuple1.Item2;
-        Vector2 p3 = tuple2.Item2;
-        Vector2 p4 = tuple2.Item1;
+        Vector2 p3 = tuple2.Item1;
+        Vector2 p4 = tuple2.Item2;
 
         float d1 = Vector2.Distance(p, p1);
         float d2 = Vector2.Distance(p, p2);
         float d3 = Vector2.Distance(p, p3);
         float d4 = Vector2.Distance(p, p4);
 
-        float[] dss ={ d1+d2, d2+d3, d3+d4, d4+d1 };
+        float[] dss ={ d1+d2, d4+d1, d3+d4, d2+d3 };
 
         float d = dss[0];
 
         for (int i = 1; i < dss.Length; i++) {
-            if(d < dss[i]) d = dss[i];
+            if(d > dss[i]) d = dss[i];
         }
 
         Vector2 result = Vector2.zero;
 
         if (d == dss[1]) //r
         {
-            //result = MathUtil.LocalToGlobalCoords(new Vector2(1, 0), this);
-            result = new Vector2(1, 0);
+            result = MathUtil.LocalToGlobalCoords(new Vector2(1, 0), this)  - position;
+            //result = new Vector2(1, 0);
         }
         if (d == dss[0]) //t
         {
-            //result = MathUtil.LocalToGlobalCoords(new Vector2(0, 1), this);
-            result = new Vector2(0, 1);
+            result = MathUtil.LocalToGlobalCoords(new Vector2(0, 1), this)  - position;
+            //result = new Vector2(0, 1);
         }
         if (d == dss[3]) //l
         {
-            //result = MathUtil.LocalToGlobalCoords(new Vector2(-1, 0), this);
-            result = new Vector2(-1, 0);
+            result = MathUtil.LocalToGlobalCoords(new Vector2(-1, 0), this)  - position;
+            //result = new Vector2(-1, 0);
         }
-        if (d == dss[2]) //b
+        if (d == dss[2]) //d
         {
-            //result = MathUtil.LocalToGlobalCoords(new Vector2(0, -1), this);
-            result = new Vector2(0, -1);
+            result = MathUtil.LocalToGlobalCoords(new Vector2(0, -1), this)  - position;
+            //result = new Vector2(0, -1);
         }
 
         return result;

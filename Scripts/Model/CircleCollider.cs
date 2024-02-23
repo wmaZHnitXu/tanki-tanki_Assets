@@ -8,6 +8,8 @@ public class CircleCollider : Collider
         set => _radius = value;
     }
 
+    public override float rotation => 0.0f;
+
     public CircleCollider(Entity owner, float radius) {
         this.owner = owner;
         this.radius = radius;

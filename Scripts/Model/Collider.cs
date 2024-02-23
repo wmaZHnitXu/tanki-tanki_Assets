@@ -15,10 +15,8 @@ public abstract class Collider : IPosAndRot
         }
     }
 
-    virtual public float rotation {
-        get {
-            return 0.0f;
-        }
+    abstract public float rotation {
+        get;
     }
 
     public abstract float GetPointDepth(Vector2 point);
