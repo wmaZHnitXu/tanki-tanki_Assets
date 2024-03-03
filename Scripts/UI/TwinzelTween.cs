@@ -81,14 +81,13 @@ public class TwinzelTween : MonoBehaviour
         return -Math.Abs((x-1) * (x-1) * (x-1)) + 1;
     }
 
-    [SerializeField] private List<TwinzelTween> childTweeners = new List<TwinzelTween>();
     [ContextMenu("Add tweeners from children gameobjects")]
     public void AddTweenersFromChildren() {
-        childTweeners = new List<TwinzelTween>();
+        children = new List<TwinzelTween>();
 
         foreach (TwinzelTween twin in transform.GetComponentsInChildren<TwinzelTween>(true)) {
             if (twin == this) continue;
-            childTweeners.Add(twin);
+            children.Add(twin);
         }
     }
 
@@ -113,7 +112,6 @@ public class TwinzelTween : MonoBehaviour
 
     public void SetScale(float x, AnimationTW anim) {
         float scaleFactor = InterpFloat(anim.startScale, anim.endScale, x);
-        Debug.Log(originalScale * scaleFactor + " " + scaleFactor + " " + originalScale);
         transform.localScale = originalScale * scaleFactor;
     }
 
@@ -140,6 +138,7 @@ public class TwinzelTween : MonoBehaviour
     public void Appear() {
         PlayAnimation(appearAnim);
         foreach (TwinzelTween twin in children) {
+            Debug.Log(twin.gameObject.name + " asad");
             twin.Appear();
         }
     }

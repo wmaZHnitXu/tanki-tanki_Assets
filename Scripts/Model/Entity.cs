@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Entity : IPosAndRot
 {
+    protected readonly Level level;
     private Vector2 _position;
     public virtual Vector2 position {
         get => _position;
@@ -21,7 +22,7 @@ public abstract class Entity : IPosAndRot
 
     public delegate void OnDestruction(Entity sender);
     public event OnDestruction OnDestructionEvent;
-    protected readonly Level level;
+    
     public Entity(Level level) {
         this.level = level;
         level.AddEntity(this);

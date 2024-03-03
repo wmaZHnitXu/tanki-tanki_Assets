@@ -53,7 +53,7 @@ public class Tank : DestructibleEntity, IPushable
 
         this.turret = turret;
         this.controller = controller;
-        this.maxHealth = 100.0f;
+        this.maxHealth = 10000.0f;
         this.health = this.maxHealth;
         this.acceleration = 50.0f;
         this.speed = 10f;

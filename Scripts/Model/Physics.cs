@@ -209,7 +209,6 @@ public class Physics
                     float d2 = Vector2.Distance(from, v2);
 
                     if (d >= d1 || d >= d2) {
-                        Debug.Log(true);
                         var preResult = d1 < d2 ? v1 : v2;
                         var preD = d1 < d2 ? d1 : d2;
 

@@ -13,6 +13,7 @@ public class MoneyCollectable : CollectableEntity
 
     protected override void Collect()
     {
+        level.profit += nominal;
         Kill();
     }
 }

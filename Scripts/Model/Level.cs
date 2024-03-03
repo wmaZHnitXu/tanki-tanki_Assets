@@ -21,6 +21,14 @@ public class Level
 
     public List<Entity> entities;
     public CollideableEntity[] collideables = new CollideableEntity[0];
+    private int _profit;
+    public int profit {
+        get => _profit;
+        set {
+            _profit = value;
+            OnProfitChangedEvent?.Invoke(this, profit);
+        }
+    }
 
     List<Entity> toRemove = new List<Entity>();
     List<Entity> toAdd = new List<Entity>();
@@ -30,6 +38,10 @@ public class Level
 
     public delegate void OnLevelEnded(Level level);
     public event OnLevelEnded OnLevelEndedEvent;
+
+    public delegate void OnProfitChanged(Level level, int profit);
+    public event OnProfitChanged OnProfitChangedEvent;
+    public bool isComplete;
     private Tank _playerTank;
     public Tank playerTank {
         get => _playerTank;
@@ -144,8 +156,12 @@ public class Level
     private void RemoveRemovedEntities() {
 
         int collideableCnt = 0;
+        bool removedSomething = false;
+
         foreach (Entity entity in toRemove) {
-            entities.Remove(entity);
+            if (entities.Remove(entity)) {
+                removedSomething = true;
+            }
 
             if (entity is CollideableEntity) {
                 collideableCnt++;
@@ -165,8 +181,10 @@ public class Level
 
         toRemove.Clear();
 
-        if (CheckLevelEnded()) {
-            EndLevel();
+        if (removedSomething && CheckLevelComplete() && !isComplete) {
+            Debug.Log("Level complete!");
+            isComplete = true;
+            CompleteLevel();
         }
     }
 
@@ -174,7 +192,7 @@ public class Level
         toRemove.Add(entity);
     }
 
-    public bool CheckLevelEnded() {
+    public bool CheckLevelComplete() {
         foreach (Entity entity in collideables) {
             if (entity is DestructibleEntity) {
                 if ((entity as DestructibleEntity).MustBeDestroyedForLevelToEnd()) return false;
@@ -183,7 +201,7 @@ public class Level
         return true;
     }
 
-    public void EndLevel() {
+    public void CompleteLevel() {
         OnLevelEndedEvent?.Invoke(this);
     }
 

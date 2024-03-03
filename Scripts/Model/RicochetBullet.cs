@@ -19,6 +19,7 @@ public class RicochetBullet : Entity
     public override void Update(float delta)
     {
         Vector2 nextPos = position + velocity * delta;
+
         Vector2 normal = Vector2.zero;
         Entity e = null;
         var to = nextPos;
@@ -26,6 +27,11 @@ public class RicochetBullet : Entity
         
             float remainingDistance = Vector2.Distance(nextPos, to);
             velocity = Vector2.Reflect(velocity, normal);
+
+            if (e is DestructibleEntity) {
+                var destr = e as DestructibleEntity;
+                destr.Damage(250f, nextPos);
+            }
             
             lifetime += delta;
             nextPos += velocity.normalized * remainingDistance;

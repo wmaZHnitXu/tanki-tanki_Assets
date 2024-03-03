@@ -7,7 +7,7 @@ public abstract class DestructibleEntity : CollideableEntity
         get => _health;
         protected set {
             _health = value;
-            if (health < 0f && !isDead) {
+            if (health <= 0f && !isDead) {
                 Kill();
             }
         }

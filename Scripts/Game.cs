@@ -69,6 +69,10 @@ public class Game : MonoBehaviour
         playerTank = null;
     }
 
+    public void CompleteLevel(Level level) {
+        UIManager.instance.activeOverlay = UIManager.MainOverlayType.LevelEnd;
+    }
+
     public void LoadLevel(int levelNum, out Tank plrtnk) {
         level = new Level(32, 32);
 
@@ -76,6 +80,7 @@ public class Game : MonoBehaviour
         level.SetPlayerTank(plrtnk);
 
         OnLevelLoadEvent?.Invoke(level);
+        level.OnLevelEndedEvent += CompleteLevel;
 
         new Tile(level, new Vector2(2f, 2f));
         new Tile(level, new Vector2(1f, 1f));
