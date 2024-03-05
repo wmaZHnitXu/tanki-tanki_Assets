@@ -67,10 +67,14 @@ public class Game : MonoBehaviour
         level.Destroy();
         level = null;
         playerTank = null;
+        UIManager.instance.OnReturnedToGarage -= ExitLevel;
+        Debug.Log("Destroyed level");
     }
 
     public void CompleteLevel(Level level) {
-        UIManager.instance.activeOverlay = UIManager.MainOverlayType.LevelEnd;
+        UIManager.instance.CompleteLevel();
+        UIManager.instance.OnReturnedToGarage += ExitLevel;
+        Debug.Log("Completed level");
     }
 
     public void LoadLevel(int levelNum, out Tank plrtnk) {

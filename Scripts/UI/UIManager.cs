@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class UIManager : MonoBehaviour
         Settings,
         Pause
     }
+
+    public UnityAction OnReturnedToGarage; 
 
     [SerializeField] private SmallOverlayType _smallActiveOverlay;
     public SmallOverlayType activeSmallOverlay {
@@ -35,7 +38,24 @@ public class UIManager : MonoBehaviour
             _activeOverlay = value;
             GetMainOverlay(_activeOverlay).Appear();
         }
-    } 
+    }
+
+    public void CompleteLevel() {
+        activeOverlay = MainOverlayType.LevelEnd;
+
+        void LevelEndDisappeared() {
+            activeOverlay = MainOverlayType.Garage;
+            GetMainOverlay(MainOverlayType.Garage).OnAppearEvent += ReturnedToGarage;
+        }
+
+        void ReturnedToGarage() {
+            GetMainOverlay(MainOverlayType.LevelEnd).OnDisappearEvent -= LevelEndDisappeared;
+            GetMainOverlay(MainOverlayType.Garage).OnAppearEvent -= ReturnedToGarage;
+            OnReturnedToGarage?.Invoke();
+        }
+
+        GetMainOverlay(MainOverlayType.LevelEnd).OnDisappearEvent += LevelEndDisappeared;
+    }
 
 
 

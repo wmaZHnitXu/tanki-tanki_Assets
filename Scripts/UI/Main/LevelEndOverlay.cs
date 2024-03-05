@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelEndOverlay : MainOverlay
 {
-    // Start is called before the first frame update
-    void Start()
+    float counter;
+    public override void OnAppear()
     {
-        
+        base.OnAppear();
+        counter = 2f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        if (counter > 0.0f) {
+            counter -= Time.deltaTime;
+            if (counter <= 0.0f) {
+                Disappear();
+            }
+        }
     }
 }

@@ -15,6 +15,11 @@ public class TwinzelTween : MonoBehaviour
     }
     [SerializeField] private PreviewType previewState;
     [SerializeField] private bool notSupposedToHaveImageComponent;
+    public delegate void OnAppear();
+    public event OnAppear OnAppearEvent;
+
+    public delegate void OnDisappear();
+    public event OnDisappear OnDisappearEvent;
 
 
     [SerializeField] private Vector3 originalPosition;
@@ -157,7 +162,11 @@ public class TwinzelTween : MonoBehaviour
                 timestamp = 1.0f;
                 inPlay = false;
                 if (currentAnimation == disappearAnim) {
+                    OnDisappearEvent?.Invoke();
                     gameObject.SetActive(false);
+                }
+                else if (currentAnimation == appearAnim) {
+                    OnAppearEvent?.Invoke();
                 }
             }
             SetAnimTimestamp(timestamp);
