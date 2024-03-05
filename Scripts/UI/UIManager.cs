@@ -40,6 +40,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void AbandonLevel() {
+        activeOverlay = MainOverlayType.Garage;
+        GetMainOverlay(MainOverlayType.Garage).OnAppearEvent += ReturnedToGarage;
+        
+        void ReturnedToGarage() {
+            OnReturnedToGarage?.Invoke();
+            GetMainOverlay(MainOverlayType.Garage).OnAppearEvent -= ReturnedToGarage;
+
+        }
+    }
+
     public void CompleteLevel() {
         activeOverlay = MainOverlayType.LevelEnd;
 

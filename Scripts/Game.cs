@@ -8,7 +8,11 @@ public class Game : MonoBehaviour
         OnLevel
     }
     public GameState state;
-    private Level level;
+    private Level _level;
+    public Level level {
+        get => _level;
+        private set => _level = value;
+    }
     public Tank playerTank;
     public PlayerController controller;
     public delegate void OnLevelLoad(Level level);
@@ -73,11 +77,12 @@ public class Game : MonoBehaviour
 
     public void CompleteLevel(Level level) {
         UIManager.instance.CompleteLevel();
-        UIManager.instance.OnReturnedToGarage += ExitLevel;
         Debug.Log("Completed level");
     }
 
     public void LoadLevel(int levelNum, out Tank plrtnk) {
+        UIManager.instance.OnReturnedToGarage += ExitLevel;
+        
         level = new Level(32, 32);
 
         plrtnk = new Tank(level, new TankInfo(), controller);
