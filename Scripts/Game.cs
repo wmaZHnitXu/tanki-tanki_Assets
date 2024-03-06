@@ -15,20 +15,23 @@ public class Game : MonoBehaviour
     }
     public Tank playerTank;
     public PlayerController controller;
+    public PlayerInfo playerInfo;
     public delegate void OnLevelLoad(Level level);
     public event OnLevelLoad OnLevelLoadEvent;
     void Start()
     {
         instance = this;
         //Application.targetFrameRate = 60;
+        FindObjectOfType<SaveLoad>().Initialize();
         FindObjectOfType<PresentationManager>().Initialize();
         FindObjectOfType<UIManager>().Initialize();
         FindObjectOfType<HealthBarsController>().Initialize();
         FindObjectOfType<ParticleSystems>().Initialize();
+
         controller = GetComponent<PlayerControllerPC>();
+        playerInfo = SaveLoad.instance.GetPlayerInfoSync();
 
         UIManager.instance.activeOverlay = UIManager.MainOverlayType.Greeting;
-        //level.DoUpdate(0.1f);
     }
 
     int i = 0;
@@ -85,7 +88,7 @@ public class Game : MonoBehaviour
         
         level = new Level(32, 32);
 
-        plrtnk = new Tank(level, new TankInfo(), controller);
+        plrtnk = new Tank(level, playerInfo.selectedTank, controller);
         level.SetPlayerTank(plrtnk);
 
         OnLevelLoadEvent?.Invoke(level);
