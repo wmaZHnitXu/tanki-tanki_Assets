@@ -43,7 +43,7 @@ public class Tank : DestructibleEntity, IPushable
         }
     }
 
-    public Tank(Level level, TankInfo info, IController controller) : base(level) {
+    public Tank(Level level, TankInfo info, Vector2 position, IController controller) : base(level) {
         this.colliders = new List<Collider> {
             new CircleCollider(this, 0.5f),
             new RectCollider(this, 1.0f, 1.0f, true)
@@ -52,6 +52,7 @@ public class Tank : DestructibleEntity, IPushable
         var turret = Turret.Create(level, this, info);        
 
         this.turret = turret;
+        this.position = position;
         this.controller = controller;
         this.maxHealth = 10000.0f;
         this.health = this.maxHealth;
