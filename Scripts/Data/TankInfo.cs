@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class TankInfo
 {
     public enum TurretType : int {
@@ -31,5 +33,14 @@ public class TankInfo
         this.hullType = HullType.medium;
         this.turretLevel = 1;
         this.hullLevel = 1;
+    }
+
+    public float GetHullWidth() {
+        switch (hullType) {
+            case HullType.light: return 0.75f;
+            case HullType.medium: return 0.875f;
+            case HullType.heavy: return 1.0f;
+            default: return 0.875f; 
+        }
     }
 }
