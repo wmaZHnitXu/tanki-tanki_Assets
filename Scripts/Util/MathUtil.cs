@@ -19,6 +19,7 @@ public class MathUtil
         b = detB / mainDet;
 
     }
+
     public static void SolveItersectionOfCircleAndLine(float k, float b, float x0, float y0, float r, out Vector2 v1, out Vector2 v2)
     {
         float middleX1;
@@ -83,4 +84,6 @@ public class MathUtil
 
         return inIts.position + GetVectorOfPolar(newAngle, len);
     }
+
+    
 }

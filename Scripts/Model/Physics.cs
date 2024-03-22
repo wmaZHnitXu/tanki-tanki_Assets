@@ -268,4 +268,20 @@ public class Physics
 
         return result;
     }
+
+    public static List<Entity> GetEntitiesForSplash(CollideableEntity[] collideables, Vector2 hitPos, float splashRange, Entity ignor)
+    {
+        List<Entity> result = new List<Entity>();
+
+        foreach (CollideableEntity entity in collideables)
+        {
+            if (entity == ignor) continue;
+            if(Vector2.Distance(hitPos, entity.position) < splashRange)
+            {
+                result.Add(entity);
+            }
+        }
+
+        return result;
+    }
 }

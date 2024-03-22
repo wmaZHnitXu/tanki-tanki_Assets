@@ -125,6 +125,10 @@ public class Level
     public Entity TraceLine(Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos, out Vector2 normal) {
         return Physics.TraceLine(collideables, canGoThrough, from, to, out hitPos, out normal);
     }
+    public List<Entity> GetEntitiesForSplash(Vector2 hitPos, float splashRange, Entity ignor)
+    {
+        return Physics.GetEntitiesForSplash(collideables, hitPos, splashRange, ignor);
+    }
 
     private void AddAddedEntities() {
         int collideableCnt = 0;

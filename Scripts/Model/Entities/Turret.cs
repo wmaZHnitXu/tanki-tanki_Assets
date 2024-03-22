@@ -43,6 +43,8 @@ public abstract class Turret : AttachedEntity
                 return new ShotgunTurret(level, owner, info);
             case TurretType.ricochet:
                 return new RicochetTurret(level, owner, info);
+            case TurretType.cannon:
+                return new CannonTurret(level, owner, info);
             default:
                 throw new NotImplementedException();
         }
