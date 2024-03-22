@@ -106,7 +106,10 @@ public class Game : MonoBehaviour
             }
         }
         
-        var tank = new Tank(level, new TankInfo(), Vector2.zero, null);
+        var tank = new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
+        new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
+        new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
+        new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
         
     }
 }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class TankSpritesHolder : MonoBehaviour
 {
+    public static TankSpritesHolder instance;
     public List<HullSprites> hulls;
     public List<TurretSprites> turrets;
+
+    public void Initialize() => instance = this;
     public Sprite GetHullSprite(TankInfo info) {
         return GetHullSprite(info.hullType, info.hullLevel);
     }
@@ -27,7 +30,8 @@ public class TankSpritesHolder : MonoBehaviour
         public List<Sprite> hullLevels;
         public List<Sprite> hullLevelsEmissions;
     }
-
+    
+    [System.Serializable]
     public class TurretSprites {
         public List<Sprite> turretLevels;
 
