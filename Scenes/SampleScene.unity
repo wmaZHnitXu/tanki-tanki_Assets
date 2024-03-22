@@ -6382,7 +6382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -57.2, y: 75.39}
+  m_AnchoredPosition: {x: -57.2, y: 1595.39}
   m_SizeDelta: {x: 349, y: 95.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445579403
@@ -6398,7 +6398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: 0
-  previewState: 0
+  previewState: 1
   notSupposedToHaveImageComponent: 0
   originalPosition: {x: -57.2, y: 75.39, z: 0}
   originalScale: {x: 1, y: 1, z: 1}
@@ -16954,7 +16954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: 0
-  previewState: 0
+  previewState: 1
   notSupposedToHaveImageComponent: 0
   originalPosition: {x: 0, y: 0, z: 0}
   originalScale: {x: 1, y: 1, z: 1}
@@ -17000,7 +17000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.22745098, g: 0.21960784, b: 0.33333334, a: 0.8235294}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -25595,7 +25595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1280, y: -40}
+  m_AnchoredPosition: {x: 1640, y: -40}
   m_SizeDelta: {x: 349, y: 130.2518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2051657466
@@ -25649,7 +25649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: 0
-  previewState: 0
+  previewState: 1
   notSupposedToHaveImageComponent: 0
   originalPosition: {x: 0, y: -40, z: 0}
   originalScale: {x: 1, y: 1, z: 1}
