@@ -17,6 +17,7 @@ public class PresentationManager : MonoBehaviour
     public void Initialize() {
         instance = this;
         Game.instance.OnLevelLoadEvent += SetLevelListening;
+        FindObjectOfType<TankSpritesHolder>().Initialize();
     }
 
     private void AllocatePresentation(Entity entity) {

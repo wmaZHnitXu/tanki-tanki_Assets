@@ -4,13 +4,16 @@ using UnityEngine;
 public class TankCorpse : DestructibleEntity, IPushable
 {
     public readonly TankInfo tankInfo;
-    private float stoppingRate = 0.1f;
+    private float stoppingRate = 0.7f;
+    public float turretRotation;
     private Vector2 _velocity; 
-    public TankCorpse(Level level, TankInfo tankInfo, Vector2 position, Vector2 velocity) : base(level)
+    public TankCorpse(Level level, TankInfo tankInfo, Vector2 position, Vector2 velocity, float rotation, float turretRotation) : base(level)
     {
         this.position = position;
         this.velocity = velocity;
         this.tankInfo = tankInfo;
+        this.rotation = rotation;
+        this.turretRotation = turretRotation;
 
         colliders = new List<Collider>(){
             new CircleCollider(this, tankInfo.GetHullWidth() * 0.5f),
@@ -32,7 +35,8 @@ public class TankCorpse : DestructibleEntity, IPushable
 
     public override void Update(float delta)
     {
-        velocity -= velocity / (delta * stoppingRate);
+        velocity -= velocity * stoppingRate * delta;
+        position += velocity * delta;
     }
 
     public override bool MustBeDestroyedForLevelToEnd()

@@ -12,8 +12,8 @@ public class RicochetPresentation : EntityPresentation
         ricochet = target as RicochetTurret;
     }
 
-    void Update() {
-        turret.localRotation = Quaternion.Euler(0,0, ricochet.yaw);
+    protected override void Update() {
+        turret.rotation = Quaternion.Euler(0,0, ricochet.yaw);
         transform.position = ricochet.position;
     }
 }
