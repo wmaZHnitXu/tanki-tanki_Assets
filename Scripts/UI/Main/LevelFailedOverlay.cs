@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelEndOverlay : MainOverlay
+public class LevelFailedOverlay : MainOverlay
 {
     float counter;
     public override void OnAppear()
@@ -13,7 +13,7 @@ public class LevelEndOverlay : MainOverlay
         if (counter > 0.0f) {
             counter -= Time.deltaTime;
             if (counter <= 0.0f) {
-                Disappear();
+                Disappear(); 
             }
         }
     }

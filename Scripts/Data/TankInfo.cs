@@ -29,7 +29,7 @@ public class TankInfo
     public int hullLevel;
 
     public TankInfo() {
-        this.turretType = TurretType.shotgun;
+        this.turretType = TurretType.cannon;
         this.hullType = HullType.heavy;
         this.turretLevel = 1;
         this.hullLevel = 1;

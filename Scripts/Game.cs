@@ -38,7 +38,16 @@ public class Game : MonoBehaviour
     void Update() {
         if (level != null) {
             //if (i++ % 100 == 0)
-                level.DoUpdate(Time.deltaTime * 1.0f);
+            /*if (playerTank.health <= 0)
+            {
+                level.OnLevelEndedEvent += FailLevel;
+                Debug.Log("F LVL");
+                level.OnLevelEndedEvent -= CompleteLevel;
+                Debug.Log("NO C LVL");
+
+            }*/
+
+            level.DoUpdate(Time.deltaTime * 1.0f);
 
             for (int i = 0; i < 4; i++) {
                 RectCollider rect = playerTank.colliders[1] as RectCollider;
@@ -82,6 +91,11 @@ public class Game : MonoBehaviour
         UIManager.instance.CompleteLevel();
         Debug.Log("Completed level");
     }
+    public void FailLevel(Level level)
+    {
+        UIManager.instance.FailLevel();
+        Debug.Log("Failed level");
+    }
 
     public void LoadLevel(int levelNum, out Tank plrtnk) {
         UIManager.instance.OnReturnedToGarage += ExitLevel;
@@ -92,7 +106,7 @@ public class Game : MonoBehaviour
         level.SetPlayerTank(plrtnk);
 
         OnLevelLoadEvent?.Invoke(level);
-        level.OnLevelEndedEvent += CompleteLevel;
+        
 
         new Tile(level, new Vector2(2f, 2f));
         new Tile(level, new Vector2(1f, 1f));
@@ -108,8 +122,8 @@ public class Game : MonoBehaviour
         
         var tank = new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
         new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
-        new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
-        new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
-        
+       // new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
+       // new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
+        new Tank(level, new TankInfo(), Vector2.zero, null);
     }
 }

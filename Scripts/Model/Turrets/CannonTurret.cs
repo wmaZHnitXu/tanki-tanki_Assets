@@ -20,7 +20,7 @@ public class CannonTurret : Turret
             float x = Mathf.Cos((rotation + 90.0f) * Mathf.Deg2Rad);
             float y = Mathf.Sin((rotation + 90.0f) * Mathf.Deg2Rad);
             float cannonLength = 1.0f;
-            float bulletSpeed = 10.0f;
+            float bulletSpeed = 20.0f;
             Vector2 bulletOriginPos = position + (new Vector2(x, y) * cannonLength);
             CannonBullet bullet = new CannonBullet(level, bulletOriginPos, new Vector2(x, y) * bulletSpeed + velocity, owner);
 

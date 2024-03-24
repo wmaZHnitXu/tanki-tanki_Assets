@@ -39,7 +39,7 @@ public class CannonBullet : Entity
                     {
                         var h = hitEntity as DestructibleEntity;
                         h.Damage(damage*0.3f, nextPos);
-                     }
+                    }
                 }
 
                 return;

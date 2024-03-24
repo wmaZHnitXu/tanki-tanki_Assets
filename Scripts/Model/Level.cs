@@ -186,7 +186,19 @@ public class Level
         toRemove.Clear();
 
         if (removedSomething && CheckLevelComplete() && !isComplete) {
+            OnLevelEndedEvent -= Game.instance.FailLevel;
+            OnLevelEndedEvent += Game.instance.CompleteLevel;
+
             Debug.Log("Level complete!");
+            isComplete = true;
+            CompleteLevel();
+        }
+        if (removedSomething && CheckLevelFail() && !isComplete)
+        {
+            OnLevelEndedEvent -= Game.instance.CompleteLevel;
+            OnLevelEndedEvent += Game.instance.FailLevel;
+
+            Debug.Log("Level failed!");
             isComplete = true;
             CompleteLevel();
         }
@@ -202,6 +214,11 @@ public class Level
                 if ((entity as DestructibleEntity).MustBeDestroyedForLevelToEnd()) return false;
             }
         }
+        return true;
+    }
+    public bool CheckLevelFail()
+    {
+        if(playerTank.health > 0) return false;
         return true;
     }
 

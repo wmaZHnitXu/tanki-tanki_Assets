@@ -76,7 +76,14 @@ public class Tank : DestructibleEntity, IPushable
 
     protected override void Death() {
         Debug.Log("Killed");
-        Debug.Log(turret.rotation);
+        /*if(info == Game.instance.playerInfo.selectedTank) 
+        {
+            level.OnLevelEndedEvent += Game.instance.FailLevel;
+            Debug.Log("F LVL");
+            level.OnLevelEndedEvent -= CompleteLevel;
+            Debug.Log("NO C LVL");
+        }*/
+        //Debug.Log(turret.rotation);
         //new TankCorpse(level, info, position, velocity, rotation, turret.rotation);
     }
 

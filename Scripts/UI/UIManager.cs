@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
         Garage,
         LvlSelect,
         OnLevel,
-        LevelEnd
+        LevelEnd,
+        LevelFailed
     }
 
     public enum SmallOverlayType : int {
@@ -67,7 +68,25 @@ public class UIManager : MonoBehaviour
 
         GetMainOverlay(MainOverlayType.LevelEnd).OnDisappearEvent += LevelEndDisappeared;
     }
+    public void FailLevel()
+    {
+        activeOverlay = MainOverlayType.LevelFailed;
 
+        void LevelEndDisappeared()
+        {
+            activeOverlay = MainOverlayType.Garage;
+            GetMainOverlay(MainOverlayType.Garage).OnAppearEvent += ReturnedToGarage;
+        }
+
+        void ReturnedToGarage()
+        {
+            GetMainOverlay(MainOverlayType.LevelFailed).OnDisappearEvent -= LevelEndDisappeared;
+            GetMainOverlay(MainOverlayType.Garage).OnAppearEvent -= ReturnedToGarage;
+            OnReturnedToGarage?.Invoke();
+        }
+
+        GetMainOverlay(MainOverlayType.LevelFailed).OnDisappearEvent += LevelEndDisappeared;
+    }
 
 
     [SerializeField] private List<MainOverlay> mainOverlays;
