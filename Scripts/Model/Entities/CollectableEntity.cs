@@ -13,6 +13,15 @@ public abstract class CollectableEntity : Entity
     protected float collectDistance;
     protected float followSpeed;
 
+    public CollectableEntity(Level level, Vector2 position, Vector2 velocity) : base(level) {
+        this.position = position;
+        this.velocity = velocity;
+
+        this.collectDistance = 0.3f;
+        this.followingDistance = 2.0f;
+        this.followSpeed = 600f;
+    }
+
     public virtual bool CanPush(IPushable pushable)
     {
         return false;
@@ -36,22 +45,10 @@ public abstract class CollectableEntity : Entity
             if (distance < collectDistance) {
                 Collect();
             }
-            if (distance > followingDistance) {
-                isFollowing = false;
-            }
         }
     }
 
     protected virtual void Collect() {
         Kill();
-    }
-
-    public CollectableEntity(Level level, Vector2 position, Vector2 velocity) : base(level) {
-        this.position = position;
-        this.velocity = velocity;
-
-        this.collectDistance = 0.1f;
-        this.followingDistance = 2.0f;
-        this.followSpeed = 6000f;
     }
 }

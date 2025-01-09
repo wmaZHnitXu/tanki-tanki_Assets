@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RicochetBulletPresentation : EntityPresentation
 {
-    void Update() {
+    protected override void Update() {
         transform.position = target.position;
     }
     

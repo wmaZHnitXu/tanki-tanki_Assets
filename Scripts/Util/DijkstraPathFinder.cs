@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Utils;
 
-public class DijkstraPathFinder : IDijkstraPF
+public class DijkstraPathFinder : IPathFinder
 {
     int[,] grid;
 

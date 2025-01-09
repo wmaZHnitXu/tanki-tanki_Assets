@@ -75,7 +75,9 @@ public class Game : MonoBehaviour
         if (level != null) {
             level.Destroy();
         }
+        //ISX
         LoadLevel(levelNum, out playerTank);
+
         FindObjectOfType<CameraMovement>().Initialize(controller, playerTank);
     }
 
@@ -97,6 +99,7 @@ public class Game : MonoBehaviour
         Debug.Log("Failed level");
     }
 
+    //ISX
     public void LoadLevel(int levelNum, out Tank plrtnk) {
         UIManager.instance.OnReturnedToGarage += ExitLevel;
         
@@ -107,16 +110,15 @@ public class Game : MonoBehaviour
 
         OnLevelLoadEvent?.Invoke(level);
         
-
-        new Tile(level, new Vector2(2f, 2f));
-        new Tile(level, new Vector2(1f, 1f));
-        new Tile(level, new Vector2(1f, 2f));
-        new Tile(level, new Vector2(1f, 3f));
-        new Tile(level, new Vector2(1f, 5f));
-        new Tile(level, new Vector2(1f, 6f));
+        new TileBlock(level, new Vector2(2f, 2f));
+        new TileBlock(level, new Vector2(1f, 1f));
+        new TileBlock(level, new Vector2(1f, 2f));
+        new TileBlock(level, new Vector2(1f, 3f));
+        new TileBlock(level, new Vector2(1f, 5f));
+        new TileBlock(level, new Vector2(1f, 6f));
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                new Tile(level, new Vector2(i - 15, j));
+                new TileBlock(level, new Vector2(i - 15, j));
             }
         }
         
