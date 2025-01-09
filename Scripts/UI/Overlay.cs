@@ -16,22 +16,22 @@ public class Overlay : MonoBehaviour
     public virtual void Appear() {
         tweener.Appear();
         isActive = true;
-        tweener.OnAppearEvent += OnAppear;
+        tweener.OnAppearEvent += OnAppeared;
     }
 
     public virtual void Disappear() {
         tweener.Disappear();
         isActive = false;
-        tweener.OnDisappearEvent += OnDisappear;
+        tweener.OnDisappearEvent += OnDisappeared;
     }
 
-    public virtual void OnDisappear() {
-        tweener.OnDisappearEvent -= OnDisappear;
+    public virtual void OnDisappeared() {
+        tweener.OnDisappearEvent -= OnDisappeared;
         OnDisappearEvent?.Invoke();
     }
 
-    public virtual void OnAppear() {
-        tweener.OnAppearEvent -= OnAppear;
+    public virtual void OnAppeared() {
+        tweener.OnAppearEvent -= OnAppeared;
         OnAppearEvent?.Invoke();
     }
 }

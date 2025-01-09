@@ -3,9 +3,9 @@ using UnityEngine;
 public class LevelEndOverlay : MainOverlay
 {
     float counter;
-    public override void OnAppear()
+    public override void OnAppeared()
     {
-        base.OnAppear();
+        base.OnAppeared();
         counter = 4f;
     }
 
