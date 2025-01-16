@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using UnityEngine;
 
-public class Level
+public class Level 
 {
     private int _width;
     private int _height;
@@ -70,7 +68,7 @@ public class Level
         SolveCollisions();
     }
 
-    private void SolveCollisions() {
+    protected void SolveCollisions() {
         //foreach (CollideableEntity pushCandidate in collideables) {
         var x = collideables.Length;
         for (int i = 0; i < x; i++) {
@@ -117,20 +115,21 @@ public class Level
     public void AddEntity(Entity entity) {
         toAdd.Add(entity);
     }
-
+   
     public Entity TraceLine(Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos) {
         return Physics.TraceLine(collideables, canGoThrough, from, to, out hitPos);
     }
-
+   
     public Entity TraceLine(Predicate<CollideableEntity> canGoThrough, Vector2 from, Vector2 to, out Vector2 hitPos, out Vector2 normal) {
         return Physics.TraceLine(collideables, canGoThrough, from, to, out hitPos, out normal);
     }
+    
     public List<Entity> GetEntitiesForSplash(Vector2 hitPos, float splashRange, Entity ignor)
     {
         return Physics.GetEntitiesForSplash(collideables, hitPos, splashRange, ignor);
     }
 
-    private void AddAddedEntities() {
+    protected void AddAddedEntities() {
         int collideableCnt = 0;
         foreach (Entity entity in toAdd) {
             entities.Add(entity);
@@ -157,7 +156,7 @@ public class Level
         toAdd.Clear();
     }
 
-    private void RemoveRemovedEntities() {
+    protected void RemoveRemovedEntities() {
 
         int collideableCnt = 0;
         bool removedSomething = false;
@@ -207,7 +206,7 @@ public class Level
     public void RemoveEntity(Entity entity) {
         toRemove.Add(entity);
     }
-
+    
     public bool CheckLevelComplete() {
         foreach (Entity entity in collideables) {
             if (entity is DestructibleEntity) {
@@ -216,6 +215,7 @@ public class Level
         }
         return true;
     }
+    
     public bool CheckLevelFail()
     {
         if(playerTank.health > 0) return false;
@@ -231,4 +231,5 @@ public class Level
             entity.Kill(true);
         }
     }
+
 }

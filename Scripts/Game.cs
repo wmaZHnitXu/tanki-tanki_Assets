@@ -16,25 +16,26 @@ public class Game : MonoBehaviour
     public Tank playerTank;
     public PlayerController controller;
     public PlayerInfo playerInfo;
-    public delegate void OnLevelLoad(Level level);
-    public event OnLevelLoad OnLevelLoadEvent;
+    //public delegate void OnLevelLoad(Level level);
+    //public event OnLevelLoad OnLevelLoadEvent;
     void Start()
     {
         instance = this;
         //Application.targetFrameRate = 60;
+        FindObjectOfType<LevelLoader>().Initialize();
         FindObjectOfType<SaveLoad>().Initialize();
         FindObjectOfType<PresentationManager>().Initialize();
         FindObjectOfType<UIManager>().Initialize();
         FindObjectOfType<HealthBarsController>().Initialize();
         FindObjectOfType<ParticleSystems>().Initialize();
-
+        
         controller = GetComponent<PlayerControllerPC>();
         playerInfo = SaveLoad.instance.GetPlayerInfoSync();
 
         UIManager.instance.activeOverlay = UIManager.MainOverlayType.Greeting;
     }
 
-    int i = 0;
+    //int i = 0;
     void Update() {
         if (level != null) {
             //if (i++ % 100 == 0)
@@ -75,8 +76,11 @@ public class Game : MonoBehaviour
         if (level != null) {
             level.Destroy();
         }
-        //ISX
-        LoadLevel(levelNum, out playerTank);
+
+        level = new Level(32, 32);
+        LevelLoader.instance.LoadLevel(levelNum, out playerTank);
+        level.SetPlayerTank(playerTank);
+        //LoadLevel(out playerTank);
 
         FindObjectOfType<CameraMovement>().Initialize(controller, playerTank);
     }
@@ -99,8 +103,8 @@ public class Game : MonoBehaviour
         Debug.Log("Failed level");
     }
 
-    //ISX
-    public void LoadLevel(int levelNum, out Tank plrtnk) {
+    /*ISX
+    public void LoadLevel(out Tank plrtnk) {
         UIManager.instance.OnReturnedToGarage += ExitLevel;
         
         level = new Level(32, 32);
@@ -127,5 +131,5 @@ public class Game : MonoBehaviour
        // new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
        // new Tank(level, new TankInfo(), Vector2.zero, new CirclingDummyController());
         new Tank(level, new TankInfo(), Vector2.zero, null);
-    }
+    }*/
 }
