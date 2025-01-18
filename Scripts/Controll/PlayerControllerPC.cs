@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerControllerPC : PlayerController
@@ -41,8 +40,10 @@ public class PlayerControllerPC : PlayerController
 
     public override Vector2 GetLookVector()
     {
-        float wSqr = Screen.width * Screen.width;
-        float hSqr = Screen.height * Screen.height;
+        float width = Screen.width;
+        float height = Screen.height;
+        float wSqr =  width * width;
+        float hSqr = height * height;
         return mouseDir / Mathf.Sqrt(wSqr + hSqr);
     }
 

@@ -77,9 +77,7 @@ public class Game : MonoBehaviour
             level.Destroy();
         }
 
-        level = new Level(32, 32);
-        LevelLoader.instance.LoadLevel(levelNum, out playerTank);
-        level.SetPlayerTank(playerTank);
+        level = LevelLoader.instance.LoadLevel(levelNum, out playerTank, playerInfo.selectedTank, controller);
         //LoadLevel(out playerTank);
 
         FindObjectOfType<CameraMovement>().Initialize(controller, playerTank);

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IPathFinder 
 {
-    public abstract void Find(int startX, int startY, int endX, int endY);
+    public abstract void Find(Vector2Int start, Vector2Int end);
 
 }

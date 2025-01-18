@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Utils;
 
 public class DijkstraPathFinder : IPathFinder
@@ -11,7 +12,7 @@ public class DijkstraPathFinder : IPathFinder
 
     int rows;
 
-    Dictionary<(int, int), List<((int, int), int)>> graph = new Dictionary<(int, int), List<((int, int), int)>> { };
+    Dictionary<Vector2Int, List<(Vector2Int, int)>> graph = new Dictionary<Vector2Int, List<(Vector2Int, int)>> { };
 
     public DijkstraPathFinder(int[,] grid)
     {
@@ -20,16 +21,14 @@ public class DijkstraPathFinder : IPathFinder
         this.rows = grid.GetLength(0);
     }
 
-    public void Find(int startX, int startY, int endX, int endY)
+    public void Find(Vector2Int start, Vector2Int end)
     {
-        (int, int) start = (startX, startY);
-        (int, int) end = (endX, endY);
 
         GetGraph();
 
-        List<(int, int)> path = new List<(int, int)> { };
+        List<Vector2Int> path = new List<Vector2Int> { };
 
-        (int, int) curNode = start;
+        Vector2Int curNode = start;
 
         while (true)
         {
@@ -38,14 +37,14 @@ public class DijkstraPathFinder : IPathFinder
             if (curNode == end) break;
             else
             {
-                List<((int, int), int)> sosedi = graph[(curNode.Item1, curNode.Item2)];
+                List<(Vector2Int, int)> sosedi = graph[curNode];
 
-                PriorityQueue<(int, int), int> priorityQueue = new PriorityQueue<(int, int), int>();
+                PriorityQueue<Vector2Int, int> priorityQueue = new PriorityQueue<Vector2Int, int>();
 
                 foreach (var sosed in sosedi)
                 {
 
-                    (int, int) sosedNode = sosed.Item1;
+                    Vector2Int sosedNode = sosed.Item1;
 
                     if (path.Contains(sosedNode)) continue;
 
@@ -63,7 +62,7 @@ public class DijkstraPathFinder : IPathFinder
 
         foreach (var node in path)
         {
-            Console.WriteLine(node.Item1 + " " + node.Item2);
+            Console.WriteLine(node.x + " " + node.y);
             Console.WriteLine();
         }
 
@@ -75,42 +74,50 @@ public class DijkstraPathFinder : IPathFinder
         {
             for (int x = 0; x < cols; x++)
             {
-                graph.Add((x, y), GetSosedi(x, y));
+                Vector2Int coords = new Vector2Int(x, y);
+                graph.Add(coords, GetSosedi(coords));
             }
         }
 
     }
-    private List<((int, int), int)> GetSosedi(int x, int y)
+    private List<(Vector2Int, int)> GetSosedi(Vector2Int tilePosition)
     {
         bool CheckNextNode(int x, int y)
         {
             return 0 <= x && x < cols && 0 <= y && y < rows;
         }
 
-        List<(int, int)> ways = new List<(int, int)>
+        List<Vector2Int> ways = new List<Vector2Int>
             {
-                (-1, 0), (0, -1), (1, 0), (0, 1), (-1, -1), (1, -1), (1, 1), (-1, 1)
+                new Vector2Int(-1, 0),
+                new Vector2Int(0, -1),
+                new Vector2Int(1, 0),
+                new Vector2Int(0, 1),
+                new Vector2Int(-1, -1),
+                new Vector2Int(1, -1),
+                new Vector2Int(1, 1),
+                new Vector2Int(-1, 1)
             };
 
-        List<((int, int), int)> result = new List<((int, int), int)>();
+        List<(Vector2Int, int)> result = new List<(Vector2Int, int)>();
 
-        foreach ((int dx, int dy) in ways)
+        foreach (Vector2Int d in ways)
         {
-            int newX = x + dx;
-            int newY = y + dy;
+            int newX = tilePosition.x + d.x;
+            int newY = tilePosition.y + d.y;
             if (CheckNextNode(newX, newY))
             {
-                if (grid[y + dy, x + dx] == 0) continue;
+                if (grid[tilePosition.y + d.y, tilePosition.x + d.x] == 0) continue;
                 else
-                    result.Add(((newX, newY), grid[y + dy, x + dx]));
+                    result.Add((new Vector2Int(newX, newY), grid[tilePosition.y + d.y, tilePosition.x + d.x]));
             }
         }
         return result;
     }
 
-    private int Heuristic((int, int) v, (int, int) goal)
+    private int Heuristic(Vector2Int v, Vector2Int goal)
     {
-        return Math.Max(Math.Abs(v.Item1 - goal.Item1), Math.Abs(v.Item2 - goal.Item2));
+        return Math.Max(Math.Abs(v.x - goal.x), Math.Abs(v.y - goal.y));
     }
 
 }

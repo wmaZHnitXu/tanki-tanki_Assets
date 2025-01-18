@@ -6,17 +6,6 @@ public class Level
 {
     private int _width;
     private int _height;
-    public int width {
-        get => _width;
-        set => _width = value;
-    }
-    public int height {
-        get => _height;
-        set => _height = value;
-    }
-
-    int[,] tiles;
-
     public List<Entity> entities;
     public CollideableEntity[] collideables = new CollideableEntity[0];
     private int _profit;
@@ -50,10 +39,7 @@ public class Level
         this.playerTank = playerTank;
     }
 
-    public Level(int width, int height) {
-        this.width = width;
-        this.height = height;
-        tiles = new int[width, height];
+    public Level() {
         entities = new List<Entity>();
     }
 
